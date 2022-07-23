@@ -1,7 +1,6 @@
 package entities;
 
 public abstract class Conta {
-
     private int numero;
     private String cpf;
     private double saldo;
