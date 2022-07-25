@@ -2,15 +2,21 @@ package br.com.emcriptus.TiposDeContas;
 
 public class ContaCorrente extends Conta{
 
-    private double limiteEstudantil;
+    private int contadorTalao;
 
     public ContaCorrente(int numero, String cpf) {
         super(numero, cpf);
     }
 
-    public void usarEstudantil(double valor){
-        super.credito(valor);
-        limiteEstudantil -= valor;
-    }
+    public String pediTalao(){
 
+        if(contadorTalao == 3){
+            return "Limite de talões excedidos";
+        }
+
+        super.debito(30);
+        contadorTalao++;
+
+        return "Cheque soclicitado com sucesso!";
+    }
 }

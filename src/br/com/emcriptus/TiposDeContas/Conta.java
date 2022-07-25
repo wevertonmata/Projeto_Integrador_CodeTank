@@ -6,14 +6,12 @@ public  class Conta {
     private double saldo;
     private boolean ativo;
 
-
-
     public Conta(int numero, String cpf) {
         this.numero = numero;
         this.cpf = cpf;
     }
 
-    private double debito(double valor){
+    double debito(double valor){
         saldo -= valor;
         return  saldo;
     };
@@ -21,6 +19,4 @@ public  class Conta {
     public void credito(double valor){
         saldo += valor;
     };
-
-
 }
