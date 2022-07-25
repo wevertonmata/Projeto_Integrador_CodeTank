@@ -1,10 +1,12 @@
 package entities;
 
-public abstract class Conta {
+public  class Conta {
     private int numero;
     private String cpf;
     private double saldo;
     private boolean ativo;
+
+
 
     public Conta(int numero, String cpf) {
         this.numero = numero;
@@ -13,10 +15,12 @@ public abstract class Conta {
 
     private double debito(double valor){
         saldo -= valor;
-        return saldo;
+        return  saldo;
     };
 
     public void credito(double valor){
         saldo += valor;
     };
+
+
 }
