@@ -1,4 +1,4 @@
-package app;
+package br.com.emcriptus.Main;
 
 public class Main {
     public static void main(String[] args) {

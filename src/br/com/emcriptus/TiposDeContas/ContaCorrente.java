@@ -1,4 +1,4 @@
-package entities;
+package br.com.emcriptus.TiposDeContas;
 
 public class ContaCorrente extends Conta{
 

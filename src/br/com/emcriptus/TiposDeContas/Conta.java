@@ -1,4 +1,4 @@
-package entities;
+package br.com.emcriptus.TiposDeContas;
 
 public  class Conta {
     private int numero;
