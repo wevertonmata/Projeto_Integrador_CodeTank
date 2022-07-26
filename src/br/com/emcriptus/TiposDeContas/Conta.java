@@ -1,6 +1,5 @@
 package br.com.emcriptus.TiposDeContas;
 
-
 public abstract class Conta {
 
     private int numero;
