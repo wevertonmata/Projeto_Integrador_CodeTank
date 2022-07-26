@@ -15,14 +15,19 @@ public class Main {
             switch (op) {
                 case 1:
                     contaPoupanca();
+                    break;
                 case 2:
                     contaCorrente();
+                    break;
                 case 3:
                     contaEspecial();
+                    break;
                 case 4:
                     contaEmpresa();
+                    break;
                 case 5:
                     contaEstudantil();
+                    break;
                 case 6:
                     System.exit(0);
             }
@@ -48,4 +53,6 @@ public class Main {
     public static void contaEstudantil(){
         System.out.println("CONTA ESTUDANTIL");
     }
+
+
 }

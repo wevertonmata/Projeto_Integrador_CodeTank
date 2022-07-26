@@ -1,8 +1,13 @@
 package br.com.emcriptus.TiposDeContas;
 
-public class ContaPoupanca {
-    public ContaPoupanca ((int numero, String cpf)(double saldo;)) {
-        super(numero, cpf,saldo);
+public class ContaPoupanca extends Conta{
+
+    private int diaAniversarioPoupanca;
+    public ContaPoupanca(int numero, String cpf) {
+        super(numero, cpf);
     }
-    public String diaAniversarioPoupanca (){
+
+    public String correcao(){
+        return "Correção feita";
+    }
 }
