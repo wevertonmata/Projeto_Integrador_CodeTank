@@ -1,10 +1,17 @@
 package br.com.emcriptus.App;
 
+import br.com.emcriptus.TiposDeContas.ContaCorrente;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        ArrayList<Integer> numerosContas = new ArrayList<>();
+        ArrayList<ContaCorrente> contasCorrente = new ArrayList<>();
+
 
         while (true){
 
@@ -17,7 +24,7 @@ public class Main {
                     contaPoupanca();
                     break;
                 case 2:
-                    contaCorrente();
+                    contaCorrente(numerosContas,contasCorrente);
                     break;
                 case 3:
                     contaEspecial();
@@ -38,8 +45,45 @@ public class Main {
         System.out.println("CONTA POUPANÇA");
     }
 
-    public static void contaCorrente(){
-        System.out.println("CONTA CORRENTE");
+    public static void contaCorrente(ArrayList<Integer> numerosContas,ArrayList<ContaCorrente> contas){
+//        Scanner sc = new Scanner(System.in);
+//        int movimentacoes = 0;
+//
+//        int count = 0;
+//
+//        if(contas.size() == 0){
+//            System.out.println("Informe CPF da conta? ");
+//            String cpf = sc.nextLine();
+//            ContaCorrente corrente = new ContaCorrente(Conta.gerarNumConta(numerosContas),cpf);
+//            contas.add(corrente);
+//        }
+//        else{
+//            for (ContaCorrente c: contas) {
+//                System.out.println(count + " > " + p.getNome());
+//                count++;
+//            }
+//
+//            System.out.println("Escolha P/ Atualizar: ");
+//            int prod = sc.nextInt();
+//            sc.nextLine();
+//        }
+//
+//        while (true){
+//            Interface.tela2(2,contas.get(0)); //Print informações da Tela 2
+//
+//            movimentacoes++; //Contador de movimentacoes
+//
+//            boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
+//
+//            if(movimentacoes == 10 || respContinuar){
+//                System.out.println("Deseja solicitar cheque? (S/N)");
+//                String respCheque = sc.nextLine();
+//
+//                if(respCheque.equals("S") || respCheque.equals("s")){
+//                    ; //Debita R$30 e pede cheque.
+//                }
+//            }
+//        }
     }
 
     public static void contaEspecial(){

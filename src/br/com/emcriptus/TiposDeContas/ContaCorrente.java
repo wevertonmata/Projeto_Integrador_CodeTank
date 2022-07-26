@@ -1,4 +1,7 @@
 package br.com.emcriptus.TiposDeContas;
+/*
+* Author: Weverton Mata
+*/
 
 public class ContaCorrente extends Conta{
 
@@ -24,4 +27,6 @@ public class ContaCorrente extends Conta{
 
         return "Cheque solicitado com sucesso! \n Seu novo saldo é: R$" + debito(30);
     }
+
+
 }
