@@ -15,12 +15,12 @@ public class Interface {
         System.out.println("\nDIGITE O CODIGO DA OPÇÃO SELECIONADA: ");
     }
 
-    public static void tela2(int tipo){
-        String[] tiposConta = {"CONTA POUPANÇA","CONTA CORRENTE","CONTA ESPECIAL", "CONTA EMPRESA", "CONTA ESTUDANTIL"};
-
-        System.out.println("BANCO EMCRIPTUS G2");
-        System.out.println("O Futuro cada mais perto de você.\n");
-
-        System.out.printf("CONTA %s \n\n",tiposConta[tipo-1]);
-    }
+//    public static void tela2(int tipo){
+//        String[] tiposConta = {"CONTA POUPANÇA","CONTA CORRENTE","CONTA ESPECIAL", "CONTA EMPRESA", "CONTA ESTUDANTIL"};
+//
+//        System.out.println("BANCO EMCRIPTUS G2");
+//        System.out.println("O Futuro cada mais perto de você.\n");
+//
+//        System.out.printf("CONTA %s \n\n",tiposConta[tipo-1]);
+//    }
 }

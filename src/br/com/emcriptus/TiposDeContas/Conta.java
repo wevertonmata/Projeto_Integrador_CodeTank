@@ -4,7 +4,7 @@ public abstract class Conta {
 
     private int numero;
     private String cpf;
-    private double saldo; // getter
+    private double saldo;
 
     private boolean ativo;
 
@@ -13,12 +13,21 @@ public abstract class Conta {
         this.cpf = cpf;
     }
 
-    double debito(double valor){
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    private double debito(double valor){
         saldo -= valor;
         return  saldo;
-    };
+    }
 
     public void credito(double valor){
         saldo += valor;
     };
+
 }
