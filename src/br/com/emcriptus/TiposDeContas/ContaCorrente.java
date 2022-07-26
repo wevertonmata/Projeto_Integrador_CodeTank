@@ -17,6 +17,6 @@ public class ContaCorrente extends Conta{
         super.debito(30);
         contadorTalao++;
 
-        return "Cheque soclicitado com sucesso!";
+        return "Cheque solicitado com sucesso!";
     }
 }
