@@ -1,43 +1,35 @@
 package br.com.emcriptus.App;
 
-import br.com.emcriptus.TiposDeContas.AberturaContas;
 import br.com.emcriptus.TiposDeContas.ContaCorrente;
+import br.com.emcriptus.TiposDeContas.ContaPoupanca;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        ArrayList<Integer> numerosContas = new ArrayList<>();
-        ArrayList<ContaCorrente> contasCorrente = new ArrayList<>();
+        ArrayList<Integer> numerosContas = new ArrayList<>();// Armazenar todos números das contas
 
+        ArrayList<ContaCorrente> contasCorrente = new ArrayList<>(); // Mais de uma conta por tipo de conta.
+        ArrayList<ContaPoupanca> contasPoupanca = new ArrayList<>();
+
+        // ..............
 
         while (true){
-
             Interface.telaInicial();
             int op = sc.nextInt();
             sc.nextLine();
 
             switch (op) {
-                case 1:
-                    contaPoupanca();
-                    break;
-                case 2:
-                    contaCorrente(numerosContas,contasCorrente);
-                    break;
-                case 3:
-                    contaEspecial();
-                    break;
-                case 4:
-                    contaEmpresa();
-                    break;
-                case 5:
-                    contaEstudantil();
-                    break;
-                case 6:
-                    System.exit(0);
+                case 1 -> contaPoupanca();
+                case 2 -> contaCorrente(numerosContas, contasCorrente);
+                case 3 -> contaEspecial();
+                case 4 -> contaEmpresa();
+                case 5 -> contaEstudantil();
+                case 6 -> System.exit(0);
+                default -> System.out.println("Opção Invalida!!!\n");
             }
         }
     }
@@ -59,13 +51,16 @@ public class Main {
 
             boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
 
-            if(movimentacoes == 10 || respContinuar){
-                System.out.println("Deseja solicitar cheque? (S/N)");
-                String respCheque = sc.nextLine();
-
-                if(respCheque.equals("S") || respCheque.equals("s")){
-                    //Debita R$30 e pede cheque.
-                }
+            if(movimentacoes >= 10 || respContinuar){
+//                System.out.println("Deseja solicitar cheque? (S/N)");
+//                String respCheque = sc.nextLine();
+//
+//                if(respCheque.equals("S") || respCheque.equals("s")){
+//                    //Debita R$30 e pede cheque.
+//                }
+            }
+            else{
+                break;
             }
         }
     }

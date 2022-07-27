@@ -46,13 +46,20 @@ public abstract class Conta {
     public static int gerarNumConta(ArrayList<Integer> contas) {
         Random random = new Random();
 
-        int numConta = (random.nextInt(99999 - (10000 - 1)) + 10000);
+        int numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Valor aleatorio 10000 até 99999
 
-        for (int conta: contas) {
-            while(conta == numConta){
-                numConta = (random.nextInt(99999 - (10000 - 1)) + 10000);
+//        for(int i = 0; i <= contas.size(); i++ ){
+//            while(contas.get(i) == numConta){
+//                numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Novo numero aleatorio
+//            }
+//        }
+
+        for (int i: contas) { //foreach contas[i]
+            while(i == numConta){
+                numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Novo numero aleatorio
             }
         }
+
         return numConta;
     }
 

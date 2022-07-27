@@ -10,7 +10,7 @@ public class Interface {
         System.out.println("BANCO EMCRIPTUS G2");
         System.out.println("O Futuro cada mais perto de você.");
 
-        System.out.println("\n1 - CONTA POUPANÇA");
+        System.out.println("\n1 - CONTA POUPANCA");
         System.out.println("2 - CONTA CORRENTE");
         System.out.println("3 - CONTA ESPECIAL");
         System.out.println("4 - CONTA EMPRESA");
