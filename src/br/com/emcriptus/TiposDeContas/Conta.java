@@ -16,6 +16,10 @@ public abstract class Conta {
         this.cpf = cpf;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
     public int getNumero() {
         return numero;
     }
