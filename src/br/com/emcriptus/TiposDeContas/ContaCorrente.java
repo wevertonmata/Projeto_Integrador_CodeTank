@@ -11,7 +11,7 @@ public class ContaCorrente extends Conta{
         super(numero, cpf);
     }
 
-    public double debito(double valor){
+    private double debito(double valor){
         double saldo =  super.getSaldo() - valor;
         super.setSaldo(saldo);
         return  saldo;
