@@ -1,6 +1,8 @@
 package br.com.emcriptus.App;
 
 import br.com.emcriptus.TiposDeContas.ContaCorrente;
+import br.com.emcriptus.TiposDeContas.ContaEmpresa;
+import br.com.emcriptus.TiposDeContas.ContaEstudantil;
 import br.com.emcriptus.TiposDeContas.ContaPoupanca;
 
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class App {
     	while (true){
             Interface.tela2(1,contas.get(codConta),movimentacoes); //Print informações da Tela 2
 
-            movimentacoes++; //Contador de movimentacoes
+            movimentacoes += contas.get(codConta).movimento(); //Contador de movimentacoes
             
             boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
 
