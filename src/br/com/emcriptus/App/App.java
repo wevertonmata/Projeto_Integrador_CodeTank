@@ -1,6 +1,7 @@
 package br.com.emcriptus.App;
 
 import br.com.emcriptus.TiposDeContas.ContaCorrente;
+import br.com.emcriptus.TiposDeContas.ContaPoupanca;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,12 +11,13 @@ public class App {
         ArrayList<Integer> numerosContas = new ArrayList<>();// Armazenar todos números das contas
 
         ArrayList<ContaCorrente> contasCorrente = new ArrayList<>(); // Mais de uma conta por tipo de conta
+        ArrayList<ContaPoupanca> contasPoupanca = new ArrayList<>(); // Mais de uma conta por tipo de conta
 
         while (true){
             int op = Interface.telaInicial();
 
             switch (op) {
-                case 1 -> contaPoupanca();
+                case 1 -> contaPoupanca(numerosContas, contasPoupanca);
                 case 2 -> contaCorrente(numerosContas, contasCorrente);
                 case 3 -> contaEspecial();
                 case 4 -> contaEmpresa();
@@ -25,12 +27,25 @@ public class App {
             }
         }
     }
+    public static void contaPoupanca(ArrayList<Integer> numerosContas, ArrayList<ContaPoupanca> contas){
+    	//Scanner sc = new Scanner(System.in);
+    	int movimentacoes = 0, codConta;
+    	codConta = AberturaContas.SelecionarContaPoupanca(numerosContas,contas);
+    	while (true){
+            Interface.tela2(1,contas.get(codConta),movimentacoes); //Print informações da Tela 2
 
-    public static void contaPoupanca(){
-        System.out.println("CONTA POUPANÇA");
-
+            movimentacoes++; //Contador de movimentacoes
+            
+            boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
+           
+            if(movimentacoes >= 10 || respContinuar){
+                System.out.println(movimentacoes);
+            }
+            else{
+                break;
+            }
+    	}
     }
-
     public static void contaCorrente(ArrayList<Integer> numerosContas,ArrayList<ContaCorrente> contas){
         Scanner sc = new Scanner(System.in);
         int movimentacoes = 0, codConta;
