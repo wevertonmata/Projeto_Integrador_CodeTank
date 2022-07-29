@@ -6,7 +6,14 @@ public class ContaEspecial extends Conta {
     public ContaEspecial(int numero, String cpf) {
         super(numero, cpf);
 
-    } public void usarLimite (double valor) {
+    }
+
+    @Override
+    public int movimento() {
+        return 0;
+    }
+
+    public void usarLimite (double valor) {
 
 
 

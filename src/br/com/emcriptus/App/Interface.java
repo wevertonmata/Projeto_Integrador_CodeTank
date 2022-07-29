@@ -1,12 +1,16 @@
 package br.com.emcriptus.App;
 
 import br.com.emcriptus.TiposDeContas.Conta;
+import br.com.emcriptus.TiposDeContas.ContaCorrente;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Interface {
 
-    public static void telaInicial(){
+    public static int telaInicial(){
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("BANCO EMCRIPTUS G2");
         System.out.println("O Futuro cada mais perto de você.");
 
@@ -18,25 +22,32 @@ public class Interface {
         System.out.println("6 - SAIR");
 
         System.out.println("\nDIGITE O CODIGO DA OPÇÃO SELECIONADA: ");
+        int op = sc.nextInt();
+        sc.nextLine();
+
+        return op;
     }
 
-    public static void tela2(int tipo, Conta conta){
-        String[] tiposConta = {"CONTA POUPANÇA","CONTA CORRENTE","CONTA ESPECIAL", "CONTA EMPRESA", "CONTA ESTUDANTIL"};
+    public static void tela2(int tipo, Conta conta, int movimentacoes){
+        String[] tiposConta = {"POUPANÇA","CORRENTE","ESPECIAL", "EMPRESA", "ESTUDANTIL"};
 
         System.out.println("BANCO EMCRIPTUS G2");
         System.out.println("O Futuro cada mais perto de você.\n");
 
-        System.out.printf("CONTA %s \n\n",tiposConta[tipo-1]);
+        System.out.printf("CONTA %s \n\n",tiposConta[tipo]);
 
-        System.out.printf("Numero Conta:  %d | Saldo Atual: %.2f \n",conta.getNumero(),conta.getSaldo());
+        System.out.printf("Numero Conta:  %d | Saldo Atual: %.2f | Movimentações: %d \n",conta.getNumero(),conta.getSaldo(),movimentacoes);
     }
 
     public static boolean continuar(){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Você deseja continuar? (S/N)");
-        String resp = sc.nextLine();
+        String resp = sc.nextLine().toUpperCase();
 
-        return resp.equals("S") || resp.equals("s");
+        return resp.equals("S");
     }
+
+
+
 }

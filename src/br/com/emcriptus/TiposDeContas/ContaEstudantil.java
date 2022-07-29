@@ -8,6 +8,11 @@ public class ContaEstudantil extends Conta {
 
     }
 
+    @Override
+    public int movimento() {
+        return 0;
+    }
+
     public String emprestimoEstudantil(double valor) {
 
 

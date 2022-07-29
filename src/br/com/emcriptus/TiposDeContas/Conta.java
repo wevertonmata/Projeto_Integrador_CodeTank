@@ -5,8 +5,8 @@ import java.util.Random;
 
 public abstract class Conta {
 
-    private int numero;
-    private String cpf;
+    private final int numero;
+    private final String cpf;
     private double saldo;
 
     private boolean ativo;
@@ -32,15 +32,14 @@ public abstract class Conta {
         this.saldo = saldo;
     }
 
-    private double debito(double valor){
+    public double debito(double valor){ //Perguntar o professor se pode ser publico
         saldo -= valor;
         return  saldo;
-        //Fazer verificações: Valor a ser debitado não pode ser maior que saldo
     }
 
     public void credito(double valor){
         saldo += valor;
-        //Fazer retorno do Saldo atual do cliente
+        System.out.println("Saldo efetuado, com sucesso SALDO: R$" + saldo);
     };
 
     public static int gerarNumConta(ArrayList<Integer> contas) {
@@ -62,5 +61,7 @@ public abstract class Conta {
 
         return numConta;
     }
+
+    public abstract int movimento();
 
 }
