@@ -38,7 +38,7 @@ public class App {
             
             boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
            
-            if(movimentacoes >= 10 || respContinuar){
+            if(movimentacoes >= 10 || !respContinuar){
                 System.out.println(movimentacoes);
             }
             else{
@@ -62,7 +62,7 @@ public class App {
 
             if(movimentacoes == 10 || !respContinuar){
                 System.out.println("Deseja solicitar CHEQUE? (S/N)");
-                String respCheque = sc.nextLine().toUpperCase();
+                String respCheque = sc.nextLine().toUpperCase().replaceAll(" ", "");
 
                 if(respCheque.equals("S")){
                     contas.get(codConta).pediTalao();
