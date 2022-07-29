@@ -48,7 +48,7 @@ public abstract class Conta {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
-    }
+    }// pode setar??
 
     public double debito(double valor){ //Perguntar o professor se pode ser publico
         saldo -= valor;
@@ -80,6 +80,9 @@ public abstract class Conta {
         return numConta;
     }
 
+
+
     public abstract int movimento();
 
 }
+
