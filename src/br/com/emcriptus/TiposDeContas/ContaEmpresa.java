@@ -2,16 +2,18 @@ package br.com.emcriptus.TiposDeContas;
 
 import java.util.Scanner;
 
-public class ContaEstudantil extends Conta {
+public class ContaEmpresa extends Conta {
 
-    private double limiteEstudantil;
-
-    public ContaEstudantil(int numero, String cpf, String nome)
-    {
-        super(numero, cpf, nome);
-        limiteEstudantil = 5000;//todo fazer constante
+    private double emprestimoEmpresa;
 
 
+    private String cnpj;
+
+
+    public ContaEmpresa(int _numero, String _cpf, String _nome, String _cnpj) {
+        super(_numero, _cpf, _nome);
+        this.emprestimoEmpresa = 10.000;
+        this.cnpj = _cnpj;
     }
 
     @Override
@@ -54,8 +56,6 @@ public class ContaEstudantil extends Conta {
         }
     }
 
-
-
     @Override
     public void credito(double valor) {
         super.credito(valor);
@@ -70,22 +70,15 @@ public class ContaEstudantil extends Conta {
     public double getSaldo() {
         return super.getSaldo();
     }
+    public boolean pedirEmprestimo (double valor){
+        if ( valor > emprestimoEmpresa)
+            return false;
+        else {
+            credito(valor);
+             return true;
 
-    //seta credito se tem limite disponviel
-    public boolean usarEstudantil(double valor){
-            if(valor > limiteEstudantil)
-                return false;
-            else
-            {
-                limiteEstudantil = limiteEstudantil - valor;
-                credito(valor);
-                return true;
-            }
-    }
+        }
 
-
-    public boolean Ativo(){
-        return this.isAtivo();
     }
 }
 
