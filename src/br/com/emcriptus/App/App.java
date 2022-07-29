@@ -1,6 +1,8 @@
 package br.com.emcriptus.App;
 
 import br.com.emcriptus.TiposDeContas.ContaCorrente;
+import br.com.emcriptus.TiposDeContas.ContaEmpresa;
+import br.com.emcriptus.TiposDeContas.ContaEstudantil;
 import br.com.emcriptus.TiposDeContas.ContaPoupanca;
 
 import java.util.ArrayList;

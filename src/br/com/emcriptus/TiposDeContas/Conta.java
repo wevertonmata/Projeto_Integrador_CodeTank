@@ -10,20 +10,20 @@ public abstract class Conta {
     private double saldo;
     private String nome;
 
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
     private boolean ativo;
 
     public Conta(int numero, String cpf, String nome) {
         this.numero = numero;
         this.cpf = cpf;
         this.nome = nome;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     public String getNome() {

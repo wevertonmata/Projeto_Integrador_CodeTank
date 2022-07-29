@@ -6,13 +6,12 @@ public class ContaEmpresa extends Conta {
 
     private double emprestimoEmpresa;
 
-
     private String cnpj;
 
 
     public ContaEmpresa(int _numero, String _cpf, String _nome, String _cnpj) {
         super(_numero, _cpf, _nome);
-        this.emprestimoEmpresa = 10.000;
+        this.emprestimoEmpresa = 10000;
         this.cnpj = _cnpj;
     }
 
@@ -26,7 +25,11 @@ public class ContaEmpresa extends Conta {
             System.out.println("MOVIMENTO - D-debito ou C-Crédito:");
         }
 
-        String movimento = sc.nextLine();
+        String movimento = sc.nextLine().trim();
+        while (!(movimento.equals("C") || movimento.equals("D"))){
+            movimento = sc.nextLine().trim();
+        }
+
         System.out.println("Valor movimento: R$");
         double valor = sc.nextDouble();
         sc.nextLine();

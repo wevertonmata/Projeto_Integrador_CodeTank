@@ -24,7 +24,11 @@ public class ContaEstudantil extends Conta {
             System.out.println("MOVIMENTO - D-debito ou C-Crédito:");
         }
 
-        String movimento = sc.nextLine();
+        String movimento = sc.nextLine().trim();
+        while (!(movimento.equals("C") || movimento.equals("D"))){
+            movimento = sc.nextLine().trim();
+        }
+
         System.out.println("Valor movimento: R$");
         double valor = sc.nextDouble();
         sc.nextLine();
@@ -53,8 +57,6 @@ public class ContaEstudantil extends Conta {
             }
         }
     }
-
-
 
     @Override
     public void credito(double valor) {
