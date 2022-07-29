@@ -2,6 +2,7 @@ package br.com.emcriptus.App;
 
 import br.com.emcriptus.TiposDeContas.Conta;
 import br.com.emcriptus.TiposDeContas.ContaCorrente;
+import br.com.emcriptus.TiposDeContas.ContaEstudantil;
 import br.com.emcriptus.TiposDeContas.ContaPoupanca;
 
 import java.util.ArrayList;
@@ -71,6 +72,39 @@ public class AberturaContas {
 
         return codConta;
 	}
+
+
+    public static int SelecionarContaEstudantil(ArrayList<Integer> numerosContas, ArrayList<ContaEstudantil> contas) {
+        Scanner entrada = new Scanner(System.in);
+        int count = 1, codConta;
+
+        System.out.println("Contas Estudantis disponíveis: ");
+        for (ContaEstudantil cp : contas) {
+            System.out.println(count + " > " + cp.getNome() + " | "  + cp.getCpf());
+            count++;
+        }
+        System.out.println("0 > Criar um nova conta: ");
+
+        System.out.println("Escolha: ");
+        int op = entrada.nextInt();
+        entrada.nextLine();
+
+        if (op == 0) {
+            System.out.println("Informe o nome do Cliente: ");
+            String nome = entrada.nextLine();
+            System.out.println("Informe o CPF: ");
+            String cpf = entrada.nextLine();
+            ContaEstudantil estudantil = new ContaEstudantil(Conta.gerarNumConta(numerosContas), cpf, nome);
+            contas.add(estudantil);
+            codConta = contas.size() - 1;
+            System.out.println();
+        }
+        else {
+            codConta = (op - 1);
+        }
+
+        return codConta;
+    }
 }
 
 		
