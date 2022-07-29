@@ -123,11 +123,9 @@ public class AberturaContas {
         if (op == 0) {
             System.out.println("Informe o nome do Cliente: ");
             String nome = entrada.nextLine();
-            System.out.println("Informe o CPF: ");
-            String cpf = entrada.nextLine();
             System.out.println("Informe o CNPJ: ");
             String cnpj = entrada.nextLine();
-            ContaEmpresa empresarial = new ContaEmpresa(Conta.gerarNumConta(numerosContas), cpf, nome, cnpj);
+            ContaEmpresa empresarial = new ContaEmpresa(cnpj,Conta.gerarNumConta(numerosContas),nome);
             contas.add(empresarial);
             codConta = contas.size() - 1;
             System.out.println();

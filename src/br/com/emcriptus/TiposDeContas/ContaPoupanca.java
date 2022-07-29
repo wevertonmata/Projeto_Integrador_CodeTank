@@ -1,6 +1,5 @@
 package br.com.emcriptus.TiposDeContas;
 
-import java.util.Date;
 import java.util.Scanner;
 
 public class ContaPoupanca extends Conta{
@@ -56,11 +55,8 @@ public class ContaPoupanca extends Conta{
                 credito(valor);
                 return 1;
             }
-            default ->{
-                System.out.println("Opção Invalida!!!\n");
-                return 0;
-            }
         }
+        return 0;
     }
 }
 

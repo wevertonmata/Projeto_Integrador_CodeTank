@@ -38,7 +38,7 @@ public class App {
     	while (true){
             Interface.tela2(1,contas.get(codConta),movimentacoes); //Print informações da Tela 2
 
-            movimentacoes++; //Contador de movimentacoes
+            movimentacoes += contas.get(codConta).movimento(); //Contador de movimentacoes
             
             boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
 
@@ -64,9 +64,9 @@ public class App {
 
             boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
 
-            if (movimentacoes == 10 || !respContinuar) {
+            if (movimentacoes >= 10 || !respContinuar) {
                 System.out.println("Deseja solicitar CHEQUE? (S/N)");
-                String respCheque = sc.nextLine().toUpperCase().replaceAll(" ", "");
+                String respCheque = sc.nextLine().toUpperCase().trim();
 
                 if (respCheque.equals("S")) {
                     contas.get(codConta).pediTalao();
@@ -94,11 +94,8 @@ public class App {
 
                 movimentacoes += contas.get(codConta).movimento(); // Retorna 1 se for executada ação e retorna 0 se não for.
 
-                boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
-
-
                 System.out.println("Deseja solicitar emprestimo? \n (S/N) \n (X) voltar ao menu inicial");
-                String utilizaLimite = sc.nextLine().toUpperCase().replaceAll(" ", "");
+                String utilizaLimite = sc.nextLine().toUpperCase().trim();
 
                 if (utilizaLimite.equals("S")) {
                     System.out.println("Qual valor deseja solicitar ?");
@@ -109,8 +106,6 @@ public class App {
                     } else {
                         System.out.println("Nao foi possivel solicitar o empréstimo :/");
                     }
-                } else if (utilizaLimite.equals("N")) {
-                    continue;
                 } else if (utilizaLimite.equals("X"))
                     return; //retorna para o menu inicial, coloquei opção sair (adicionar uma tread para diminuir o tempo de carregamento)
 
@@ -129,9 +124,6 @@ public class App {
 
             movimentacoes += contas.get(codConta).movimento(); // Retorna 1 se for executada ação e retorna 0 se não for.
 
-            boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
-
-
             System.out.println("Deseja solicitar emprestimo? \n (S/N) \n (X) voltar ao menu inicial");
             String utilizaLimite = sc.nextLine().toUpperCase().replaceAll(" ", "");
 
@@ -144,8 +136,6 @@ public class App {
                 } else {
                     System.out.println("Nao foi possivel solicitar o empréstimo :/");
                 }
-            } else if (utilizaLimite.equals("N")) {
-                continue;
             } else if (utilizaLimite.equals("X"))
                 return;//adicionar uma tread para diminuir o tempo de carregamento
 

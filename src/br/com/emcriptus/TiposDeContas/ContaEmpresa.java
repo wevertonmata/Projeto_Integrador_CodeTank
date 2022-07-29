@@ -6,13 +6,9 @@ public class ContaEmpresa extends Conta {
 
     private double emprestimoEmpresa;
 
-    private String cnpj;
-
-
-    public ContaEmpresa(int _numero, String _cpf, String _nome, String _cnpj) {
-        super(_numero, _cpf, _nome);
+    public ContaEmpresa( String _cnpj,int _numero, String _nome) {
+        super(_cnpj,_numero, _nome);
         this.emprestimoEmpresa = 10000;
-        this.cnpj = _cnpj;
     }
 
     @Override
@@ -30,7 +26,8 @@ public class ContaEmpresa extends Conta {
             movimento = sc.nextLine().trim();
         }
 
-        System.out.println("Valor movimento: R$");
+        System.out.println("Valor do movimento: R$");
+
         double valor = sc.nextDouble();
         sc.nextLine();
 
@@ -52,11 +49,8 @@ public class ContaEmpresa extends Conta {
                 credito(valor);
                 return 1;
             }
-            default -> {
-                System.out.println("Opção Invalida!!!\n");
-                return 0;
-            }
         }
+        return 0;
     }
 
     @Override
@@ -77,9 +71,9 @@ public class ContaEmpresa extends Conta {
         if ( valor > emprestimoEmpresa)
             return false;
         else {
+            emprestimoEmpresa = emprestimoEmpresa - valor;
             credito(valor);
              return true;
-
         }
 
     }

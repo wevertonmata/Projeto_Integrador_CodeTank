@@ -7,32 +7,35 @@ public abstract class Conta {
 
     private final int numero;
     private final String cpf;
+
+    private final String cnpj;
     private double saldo;
-    private String nome;
+    private final String nome;
 
     private boolean ativo;
 
     public Conta(int numero, String cpf, String nome) {
         this.numero = numero;
         this.cpf = cpf;
+        this.cnpj = "N/A";
+        this.nome = nome;
+    }
+    public Conta(String cnpj, int numero , String nome) {
+        this.numero = numero;
+        this.cpf = "N/A";
+        this.cnpj = cnpj;
         this.nome = nome;
     }
 
+
     public boolean isAtivo() {
         return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
     }
 
     public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 
 	public String getCpf() {
         return cpf;

@@ -9,9 +9,7 @@ public class ContaEstudantil extends Conta {
     public ContaEstudantil(int numero, String cpf, String nome)
     {
         super(numero, cpf, nome);
-        limiteEstudantil = 5000;//todo fazer constante
-
-
+        limiteEstudantil = 5000; //todo fazer constante
     }
 
     @Override
@@ -29,7 +27,8 @@ public class ContaEstudantil extends Conta {
             movimento = sc.nextLine().trim();
         }
 
-        System.out.println("Valor movimento: R$");
+        System.out.println("Valor do movimento: R$");
+
         double valor = sc.nextDouble();
         sc.nextLine();
 
@@ -51,11 +50,8 @@ public class ContaEstudantil extends Conta {
                 credito(valor);
                 return 1;
             }
-            default -> {
-                System.out.println("Opção Invalida!!!\n");
-                return 0;
-            }
         }
+        return 0;
     }
 
     @Override
@@ -83,11 +79,6 @@ public class ContaEstudantil extends Conta {
                 credito(valor);
                 return true;
             }
-    }
-
-
-    public boolean Ativo(){
-        return this.isAtivo();
     }
 }
 

@@ -49,7 +49,8 @@ public class ContaCorrente extends Conta{
             movimento = sc.nextLine().trim();
         }
 
-        System.out.println("Valor movimento: R$");
+        System.out.println("Valor do movimento: R$");
+
         double valor = sc.nextDouble();
         sc.nextLine();
 
