@@ -30,11 +30,13 @@ public class App {
     public static void contaPoupanca(ArrayList<Integer> numerosContas, ArrayList<ContaPoupanca> contas){
     	//Scanner sc = new Scanner(System.in);
     	int movimentacoes = 0, codConta;
+    	
     	codConta = AberturaContas.SelecionarContaPoupanca(numerosContas,contas);
     	while (true){
-            Interface.tela2(1,contas.get(codConta),movimentacoes); //Print informações da Tela 2
-
-            movimentacoes++; //Contador de movimentacoes
+            Interface.tela2(1,contas.get(codConta),movimentacoes);
+            
+            movimentacoes += contas.get(codConta).movimento();//Print informações da Tela 2
+           //Contador de movimentacoes
             
             boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
            

@@ -17,7 +17,7 @@ public class AberturaContas {
             System.out.println(count + " > " + c.getNome() + " | "  + c.getCpf());
             count++;
         }
-        System.out.println("0 > Criar um nova conta: ");
+        System.out.println("0 > Criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = sc.nextInt();
@@ -32,6 +32,7 @@ public class AberturaContas {
             ContaCorrente corrente = new ContaCorrente(Conta.gerarNumConta(numerosContas), cpf, nome);
             contas.add(corrente);
             codConta = contas.size() - 1;
+            System.out.println();
         }
         else {
             codConta = (op - 1);
@@ -49,7 +50,7 @@ public class AberturaContas {
             System.out.println(count + " > " + cp.getNome() + " | "  + cp.getCpf());
             count++;
         }
-        System.out.println("0 > Criar um nova conta: ");
+        System.out.println("0 > Criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = entrada.nextInt();
@@ -60,13 +61,13 @@ public class AberturaContas {
             String nome = entrada.nextLine();
             System.out.println("Informe o CPF: ");
             String cpf = entrada.nextLine();
-            ContaPoupanca corrente = new ContaPoupanca(Conta.gerarNumConta(numerosContas), cpf, nome);
-            contas.add(corrente);
+            ContaPoupanca poupanca = new ContaPoupanca(Conta.gerarNumConta(numerosContas), cpf, nome);
+            contas.add(poupanca);
             codConta = contas.size() - 1;
             System.out.println();
         }
         else {
-            codConta = (op - 1);
+        	codConta = (op - 1);
         }
 
         return codConta;
