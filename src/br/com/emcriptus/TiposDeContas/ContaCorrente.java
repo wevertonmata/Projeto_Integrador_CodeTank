@@ -3,7 +3,6 @@ package br.com.emcriptus.TiposDeContas;
 * Author: Weverton Mata
 */
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ContaCorrente extends Conta{
@@ -39,14 +38,17 @@ public class ContaCorrente extends Conta{
     public int movimento(){
         Scanner sc = new Scanner(System.in);
 
-        if(getSaldo() == 0){
+        if ((getSaldo() == 0)) {
             System.out.println("MOVIMENTO - C-Crédito:");
-        }
-        else{
+        } else {
             System.out.println("MOVIMENTO - D-debito ou C-Crédito:");
         }
 
-        String movimento = sc.nextLine();
+        String movimento = sc.nextLine().trim();
+        while (!(movimento.equals("C") || movimento.equals("D"))){
+            movimento = sc.nextLine().trim();
+        }
+
         System.out.println("Valor movimento: R$");
         double valor = sc.nextDouble();
         sc.nextLine();
@@ -69,12 +71,8 @@ public class ContaCorrente extends Conta{
                 credito(valor);
                 return 1;
             }
-            default ->{
-                System.out.println("Opção Invalida!!!\n");
-                return 0;
-            }
         }
+        return 0;
     }
-
 
 }

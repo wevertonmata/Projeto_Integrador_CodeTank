@@ -43,7 +43,7 @@ public class Interface {
 
         System.out.println("Você deseja continuar? (S/N)");
 
-        String resp = sc.nextLine().toUpperCase().replaceAll(" ", "");
+        String resp = sc.nextLine().toUpperCase().trim();
 
         return resp.equals("S");
     }
