@@ -2,7 +2,6 @@ package br.com.emcriptus.App;
 
 import br.com.emcriptus.TiposDeContas.Conta;
 
-import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Interface {
@@ -34,7 +33,7 @@ public class Interface {
         System.out.println("O Futuro mais perto de você.");
         System.out.println("*x**x**x**x**x**x**x**x**x**x**x**x**x**x*\n");
 
-         System.out.printf("CONTA %s \n", tiposConta[tipo]); //só imprime conta corrente
+         System.out.printf("CONTA %s \n", tiposConta[tipo-1]); //só imprime conta corrente
 
         System.out.printf(conta.getNome() + '|' + conta.getCpf() + "\nNumero Conta: %d | Saldo Atual: %.2f | Movimentações: %d \n",conta.getNumero(),conta.getSaldo(),movimentacoes);
     }

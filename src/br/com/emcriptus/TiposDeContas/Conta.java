@@ -56,8 +56,9 @@ public abstract class Conta {
     }
 
     public void credito(double valor){
+    	System.out.println("Crédito efetuado com sucesso R$" + valor);
         saldo += valor;
-        System.out.println("Saldo efetuado, com sucesso SALDO: R$" + saldo);
+        System.out.println("Saldo Atual R$" + saldo);
     };
 
     public static int gerarNumConta(ArrayList<Integer> contas) {

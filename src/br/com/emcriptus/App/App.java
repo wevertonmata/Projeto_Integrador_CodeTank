@@ -1,8 +1,6 @@
 package br.com.emcriptus.App;
 
 import br.com.emcriptus.TiposDeContas.ContaCorrente;
-import br.com.emcriptus.TiposDeContas.ContaEmpresa;
-import br.com.emcriptus.TiposDeContas.ContaEstudantil;
 import br.com.emcriptus.TiposDeContas.ContaPoupanca;
 
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ public class App {
         while (true) {
             int op = Interface.telaInicial();
 
-
             switch (op) {
                 case 1 -> contaPoupanca(numerosContas, contasPoupanca);
                 case 2 -> contaCorrente(numerosContas, contasCorrente);
@@ -32,16 +29,15 @@ public class App {
             }
         }
     }
-
-    public static void contaPoupanca(ArrayList<Integer> numerosContas, ArrayList<ContaPoupanca> contas) {
-        //Scanner sc = new Scanner(System.in);
-        int movimentacoes = 0, codConta;
-        codConta = AberturaContas.SelecionarContaPoupanca(numerosContas, contas);
-        while (true) {
-            Interface.tela2(0, contas.get(codConta), movimentacoes); //Print informações da Tela 2
+    public static void contaPoupanca(ArrayList<Integer> numerosContas, ArrayList<ContaPoupanca> contas){
+    	//Scanner sc = new Scanner(System.in);
+    	int movimentacoes = 0, codConta;
+    	codConta = AberturaContas.SelecionarContaPoupanca(numerosContas,contas);
+    	while (true){
+            Interface.tela2(1,contas.get(codConta),movimentacoes); //Print informações da Tela 2
 
             movimentacoes++; //Contador de movimentacoes
-
+            
             boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
 
             if (movimentacoes >= 10 || !respContinuar) {
