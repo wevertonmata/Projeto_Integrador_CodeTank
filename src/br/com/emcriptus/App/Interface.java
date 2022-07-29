@@ -33,7 +33,7 @@ public class Interface {
         System.out.println("O Futuro mais perto de você.");
         System.out.println("*x**x**x**x**x**x**x**x**x**x**x**x**x**x*\n");
 
-        System.out.printf("CONTA %s \n",tiposConta[tipo]);
+        System.out.printf("CONTA %s \n",tiposConta[tipo-1]);
 
         System.out.printf(conta.getNome() + '|' + conta.getCpf() + "\nNumero Conta: %d | Saldo Atual: %.2f | Movimentações: %d \n",conta.getNumero(),conta.getSaldo(),movimentacoes);
     }
