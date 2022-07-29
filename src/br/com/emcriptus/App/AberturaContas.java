@@ -14,7 +14,7 @@ public class AberturaContas {
 
         System.out.println("Contas Correntes disponíveis: ");
         for (ContaCorrente c : contas) {
-            System.out.println(count + " > " + c.getCpf());
+            System.out.println(count + " > " + c.getNome() + " | "  + c.getCpf());
             count++;
         }
         System.out.println("0 > Criar um nova conta: ");
@@ -24,10 +24,12 @@ public class AberturaContas {
         sc.nextLine();
 
         if (op == 0) {
-            System.out.println("Informe CPF da conta? ");
+        	System.out.println("Informe o nome do Cliente: ");
+            String nome = sc.nextLine();
+            System.out.println("Informe o CPF: ");
             String cpf = sc.nextLine();
 
-            ContaCorrente corrente = new ContaCorrente(Conta.gerarNumConta(numerosContas), cpf);
+            ContaCorrente corrente = new ContaCorrente(Conta.gerarNumConta(numerosContas), cpf, nome);
             contas.add(corrente);
             codConta = contas.size() - 1;
         }
