@@ -2,9 +2,9 @@ package br.com.emcriptus.TiposDeContas;
 
 public class ContaEstudantil extends Conta {
 
-    public ContaEstudantil(int numero, String cpf)
+    public ContaEstudantil(int numero, String cpf, String nome)
     {
-        super(numero, cpf);
+        super(numero, cpf, nome);
 
     }
 

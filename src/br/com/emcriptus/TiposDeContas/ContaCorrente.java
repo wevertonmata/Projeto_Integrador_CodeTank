@@ -7,8 +7,8 @@ public class ContaCorrente extends Conta{
 
     private int contadorTalao;
 
-    public ContaCorrente(int numero, String cpf) {
-        super(numero, cpf);
+    public ContaCorrente(int numero, String cpf, String nome) {
+        super(numero, cpf, nome);
     }
 
     private double debito(double valor){

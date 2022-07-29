@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    	Scanner sc = new Scanner(System.in);
 
         ArrayList<Integer> numerosContas = new ArrayList<>();// Armazenar todos números das contas
 
@@ -23,7 +23,7 @@ public class App {
             sc.nextLine();
 
             switch (op) {
-                case 1 -> contaPoupanca();
+                case 1 -> contaPoupanca(numerosContas, contasPoupanca);
                 case 2 -> contaCorrente(numerosContas, contasCorrente);
                 case 3 -> contaEspecial();
                 case 4 -> contaEmpresa();
@@ -34,10 +34,25 @@ public class App {
         }
     }
 
-    public static void contaPoupanca(){
-        System.out.println("CONTA POUPANÇA");
-    }
+    public static void contaPoupanca(ArrayList<Integer> numerosContas, ArrayList<ContaPoupanca> contas){
+    	Scanner entrada = new Scanner(System.in);
+    	int movimentacoes = 0, codConta;
+    	codConta = AberturaContas.SelecionarContaPoupanca(numerosContas,contas);
+    	while (true){
+            Interface.tela2(1,contas.get(codConta)); //Print informações da Tela 2
 
+            movimentacoes++; //Contador de movimentacoes
+            
+            boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
+           
+            if(movimentacoes >= 10 || respContinuar){
+            
+    }
+            else{
+                break;
+    }
+    	}
+    }
     public static void contaCorrente(ArrayList<Integer> numerosContas,ArrayList<ContaCorrente> contas){
         Scanner sc = new Scanner(System.in);
         int movimentacoes = 0, codConta;

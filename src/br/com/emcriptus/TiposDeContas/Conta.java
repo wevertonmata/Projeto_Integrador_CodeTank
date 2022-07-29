@@ -8,15 +8,25 @@ public abstract class Conta {
     private int numero;
     private String cpf;
     private double saldo;
+    private String nome;
 
     private boolean ativo;
 
-    public Conta(int numero, String cpf) {
+    public Conta(int numero, String cpf, String nome) {
         this.numero = numero;
         this.cpf = cpf;
+        this.nome = nome;
     }
 
-    public String getCpf() {
+    public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
         return cpf;
     }
 
