@@ -136,7 +136,41 @@ public class AberturaContas {
 
         return codConta;
     }
-    }
+
+    public static int SelecionarContaEspecial(ArrayList<Integer> numerosContas, ArrayList<ContaEspecial> contas) {
+        Scanner sc = new Scanner(System.in);
+        int count = 1, codConta;
+
+        System.out.println("Contas Especiais disponíveis: ");
+        for (ContaEspecial c : contas) {
+            System.out.println(count + " > " + c.getNome() + " | "  + c.getCpf());
+            count++;
+        }
+        System.out.println("0 > Criar uma nova conta: ");
+
+        System.out.println("Escolha: ");
+        int op = sc.nextInt();
+        sc.nextLine();
+
+        if (op == 0) {
+            System.out.println("Informe o nome do Cliente: ");
+            String nome = sc.nextLine();
+            System.out.println("Informe o CPF: ");
+            String cpf = sc.nextLine();
+
+            ContaEspecial especial = new ContaEspecial(Conta.gerarNumConta(numerosContas), cpf, nome);
+            contas.add(especial);
+            codConta = contas.size() - 1;
+            System.out.println();
+        }
+        else {
+            codConta = (op - 1);
+        }
+
+        return codConta;
+    }}
+
+
 
 
 		

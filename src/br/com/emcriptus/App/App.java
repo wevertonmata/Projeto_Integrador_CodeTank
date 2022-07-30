@@ -1,9 +1,6 @@
 package br.com.emcriptus.App;
 
-import br.com.emcriptus.TiposDeContas.ContaCorrente;
-import br.com.emcriptus.TiposDeContas.ContaEmpresa;
-import br.com.emcriptus.TiposDeContas.ContaEstudantil;
-import br.com.emcriptus.TiposDeContas.ContaPoupanca;
+import br.com.emcriptus.TiposDeContas.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,6 +13,8 @@ public class App {
         ArrayList<ContaPoupanca> contasPoupanca = new ArrayList<>(); // Mais de uma conta por tipo de conta]
         ArrayList<ContaEstudantil> contasEstudantil = new ArrayList<>(); // Mais de uma conta por tipo de conta
         ArrayList<ContaEmpresa> contasEmpresa = new ArrayList<>();
+        ArrayList<ContaEspecial> contasEspecial = new ArrayList<>();
+
 
         while (true) {
             int op = Interface.telaInicial();
@@ -23,7 +22,7 @@ public class App {
             switch (op) {
                 case 1 -> contaPoupanca(numerosContas, contasPoupanca);
                 case 2 -> contaCorrente(numerosContas, contasCorrente);
-                case 3 -> contaEspecial();
+                case 3 -> contaEspecial(numerosContas, contasEspecial);
                 case 4 -> contaEmpresa(numerosContas, contasEmpresa);
                 case 5 -> contaEstudantil(numerosContas, contasEstudantil);
                 case 6 -> System.exit(0);
@@ -78,9 +77,37 @@ public class App {
         //
     }
 
-    public static void contaEspecial() {
-        System.out.println("CONTA ESPECIAL");
-    }
+    public static void contaEspecial(ArrayList<Integer> numerosContas, ArrayList<ContaEspecial> contas) {
+        Scanner sc = new Scanner(System.in);
+        int movimentacoes = 0, codConta;
+
+        codConta = AberturaContas.SelecionarContaEspecial(numerosContas, contas);
+        //Faz criação de conta e returna o index dela no arraylist
+
+        while (true) {
+            Interface.tela2(4, contas.get(codConta), movimentacoes); //Print informações da Tela 2
+
+            movimentacoes += contas.get(codConta).movimento(); // Retorna 1 se for executada ação e retorna 0 se não for.
+
+            System.out.println("Deseja solicitar emprestimo? \n (S/N) \n (X) voltar ao menu inicial");
+            String utilizaLimite = sc.nextLine().toUpperCase().replaceAll(" ", "");
+
+            if (utilizaLimite.equals("S")) {
+                System.out.println("Qual valor deseja solicitar ?");
+                double valorEmprestimo = Double.parseDouble(sc.nextLine());
+                boolean deuCertoEmprestimo = contas.get(codConta).usarEspecial(valorEmprestimo);
+                if (deuCertoEmprestimo) {
+                    System.out.println("Emprestimo executado com sucesso! :)");
+                } else {
+                    System.out.println("Nao foi possivel solicitar o empréstimo :/");
+                }
+            } else if (utilizaLimite.equals("X"))
+                return;//adicionar uma tread para diminuir o tempo de carregamento
+
+        }
+
+
+
 
     public static void contaEmpresa(ArrayList<Integer> numerosContas, ArrayList<ContaEmpresa> contas) {
             Scanner sc = new Scanner(System.in);
