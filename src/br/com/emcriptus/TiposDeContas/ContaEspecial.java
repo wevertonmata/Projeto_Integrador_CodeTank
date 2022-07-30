@@ -9,14 +9,9 @@ public class ContaEspecial extends Conta {
         super(numero, cpf, nome);
     }
 
-
-
-
     /*
     public void usarLimite (double valor) { LOGICA DA CONTA
      */
-
-
 
     public int movimento() {
 
@@ -28,9 +23,9 @@ public class ContaEspecial extends Conta {
             System.out.println("MOVIMENTO - D-debito ou C-Crédito:");
         }
 
-        String movimento = sc.nextLine().trim();
+        String movimento = sc.nextLine().toUpperCase().trim();
         while (!(movimento.equals("C") || movimento.equals("D"))){
-            movimento = sc.nextLine().trim();
+            movimento = sc.nextLine().toUpperCase().trim();
         }
 
         System.out.println("Valor do movimento: R$");
@@ -46,9 +41,8 @@ public class ContaEspecial extends Conta {
         switch (movimento.toUpperCase()) {
             case ("D") -> {
                 if (getSaldo() < valor) {
-                    System.out.println("Valor maior que saldo atual. Não é possível efeituar o debito");
-                    return 0;
-                }
+                    return usarEspecial(valor);
+                } //Tirar essa validação
                 debito(valor);
                 return 1;
             }
@@ -75,13 +69,23 @@ public class ContaEspecial extends Conta {
     }
 
     //seta credito se tem limite disponviel
-    public boolean usarEspecial(double valor) {
-        if (valor > limiteEspecial)
-            return false;
-        else {
-            limiteEspecial = limiteEspecial - valor;
-            credito(valor);
-            return true;
+    public int usarEspecial(double valor) {
+
+        if(valor > limiteEspecial) {
+            System.out.println("Limite Especial Indisponível para cliente");
+            System.out.println("Limite Especial Disponível: R$" +limiteEspecial);
+            return 0;
         }
+
+        debito(valor);
+        if(getSaldo() < 0){ // -100 negativo
+            double limiteAnterior =  limiteEspecial; //1000
+            limiteEspecial = limiteEspecial + getSaldo(); //diminuir no limite > 900
+            double diferenca = limiteAnterior - limiteEspecial; //1000 - 900 = 100
+            credito(diferenca);//ajusta no saldo fica 0 (zero)
+            System.out.println("Novo Limite Especial: R$" +limiteEspecial);
+        }
+
+        return 1;
     }
 }

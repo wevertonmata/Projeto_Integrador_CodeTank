@@ -84,58 +84,53 @@ public class App {
         //Faz criação de conta e returna o index dela no arraylist
 
         while (true) {
-            Interface.tela2(4, contas.get(codConta), movimentacoes); //Print informações da Tela 2
+            Interface.tela2(2, contas.get(codConta), movimentacoes); //Print informações da Tela 2
+
+            movimentacoes += contas.get(codConta).movimento(); // Retorna 1 se for executada ação e retorna 0 se não foi.
+
+            boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
+            if (!respContinuar) {
+                break;
+            }
+
+            if(movimentacoes >= 10){
+                respContinuar = Interface.continuar();
+                if (!respContinuar) {
+                    break;
+                }
+            }
+
+
+        }
+    }
+    public static void contaEmpresa(ArrayList<Integer> numerosContas, ArrayList<ContaEmpresa> contas) {
+        Scanner sc = new Scanner(System.in);
+        int movimentacoes = 0, codConta;
+
+        codConta = AberturaContas.SelecionarContaEmpresa(numerosContas, contas);
+        //Faz criação de conta e returna o index dela no arraylist
+
+        while (true) {
+            Interface.tela2(3, contas.get(codConta), movimentacoes); //Print informações da Tela 2
 
             movimentacoes += contas.get(codConta).movimento(); // Retorna 1 se for executada ação e retorna 0 se não for.
 
             System.out.println("Deseja solicitar emprestimo? \n (S/N) \n (X) voltar ao menu inicial");
-            String utilizaLimite = sc.nextLine().toUpperCase().replaceAll(" ", "");
+            String utilizaLimite = sc.nextLine().toUpperCase().trim();
 
             if (utilizaLimite.equals("S")) {
                 System.out.println("Qual valor deseja solicitar ?");
-                double valorEmprestimo = Double.parseDouble(sc.nextLine());
-                boolean deuCertoEmprestimo = contas.get(codConta).usarEspecial(valorEmprestimo);
+                double valorEmprestimo = Double.parseDouble(sc.nextLine().trim());
+                boolean deuCertoEmprestimo = contas.get(codConta).pedirEmprestimo(valorEmprestimo);
                 if (deuCertoEmprestimo) {
                     System.out.println("Emprestimo executado com sucesso! :)");
                 } else {
                     System.out.println("Nao foi possivel solicitar o empréstimo :/");
                 }
             } else if (utilizaLimite.equals("X"))
-                return;//adicionar uma tread para diminuir o tempo de carregamento
+                return; //retorna para o menu inicial, coloquei opção sair (adicionar uma tread para diminuir o tempo de carregamento)
 
         }
-
-
-
-
-    public static void contaEmpresa(ArrayList<Integer> numerosContas, ArrayList<ContaEmpresa> contas) {
-            Scanner sc = new Scanner(System.in);
-            int movimentacoes = 0, codConta;
-
-            codConta = AberturaContas.SelecionarContaEmpresa(numerosContas, contas);
-            //Faz criação de conta e returna o index dela no arraylist
-
-            while (true) {
-                Interface.tela2(3, contas.get(codConta), movimentacoes); //Print informações da Tela 2
-
-                movimentacoes += contas.get(codConta).movimento(); // Retorna 1 se for executada ação e retorna 0 se não for.
-
-                System.out.println("Deseja solicitar emprestimo? \n (S/N) \n (X) voltar ao menu inicial");
-                String utilizaLimite = sc.nextLine().toUpperCase().trim();
-
-                if (utilizaLimite.equals("S")) {
-                    System.out.println("Qual valor deseja solicitar ?");
-                    double valorEmprestimo = Double.parseDouble(sc.nextLine().trim());
-                    boolean deuCertoEmprestimo = contas.get(codConta).pedirEmprestimo(valorEmprestimo);
-                    if (deuCertoEmprestimo) {
-                        System.out.println("Emprestimo executado com sucesso! :)");
-                    } else {
-                        System.out.println("Nao foi possivel solicitar o empréstimo :/");
-                    }
-                } else if (utilizaLimite.equals("X"))
-                    return; //retorna para o menu inicial, coloquei opção sair (adicionar uma tread para diminuir o tempo de carregamento)
-
-            }
     }
 
     public static void contaEstudantil(ArrayList<Integer> numerosContas, ArrayList<ContaEstudantil> contas) {
@@ -164,8 +159,6 @@ public class App {
                 }
             } else if (utilizaLimite.equals("X"))
                 return;//adicionar uma tread para diminuir o tempo de carregamento
-
+            }
         }
-
-    }
 }
