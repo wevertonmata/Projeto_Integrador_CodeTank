@@ -33,9 +33,16 @@ public class Interface {
         System.out.println("O Futuro mais perto de você.");
         System.out.println("*x**x**x**x**x**x**x**x**x**x**x**x**x**x*\n");
 
-         System.out.printf("CONTA %s \n", tiposConta[tipo-1]); //só imprime conta corrente
+         System.out.printf("CONTA %s \n", tiposConta[tipo]); //só imprime conta corrente
 
-        System.out.printf(conta.getNome() + '|' + conta.getCpf() + "\nNumero Conta: %d | Saldo Atual: %.2f | Movimentações: %d \n",conta.getNumero(),conta.getSaldo(),movimentacoes);
+        String cpf_cnpj;
+        if(conta.getCpf().equals("N/A")){
+            cpf_cnpj = conta.getCnpj();
+        }else{
+            cpf_cnpj = conta.getCpf();
+        }
+
+        System.out.printf(conta.getNome() + '|' + cpf_cnpj + "\nNumero Conta: %d | Saldo Atual: %.2f | Movimentações: %d \n",conta.getNumero(),conta.getSaldo(),movimentacoes);
     }
     
     public static boolean continuar(){
@@ -47,7 +54,4 @@ public class Interface {
 
         return resp.equals("S");
     }
-
-
-
 }
