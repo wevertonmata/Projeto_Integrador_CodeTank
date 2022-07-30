@@ -19,12 +19,14 @@ public abstract class Conta {
         this.cpf = cpf;
         this.cnpj = "N/A";
         this.nome = nome;
+        this.ativo = true;
     }
     public Conta(String cnpj, int numero , String nome) {
         this.numero = numero;
         this.cpf = "N/A";
         this.cnpj = cnpj;
         this.nome = nome;
+        this.ativo = true;
     }
 
 
@@ -33,7 +35,11 @@ public abstract class Conta {
     }
 
 
-    public boolean isAtivo() {
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public boolean getAtivo() {
         return ativo;
     }
 
@@ -59,7 +65,9 @@ public abstract class Conta {
     }// pode setar??
 
     public double debito(double valor){ //Perguntar o professor se pode ser publico
+        System.out.println("Debito efetuado com sucesso R$" + valor);
         saldo -= valor;
+        System.out.println("Saldo Atual R$" + saldo);
         return  saldo;
     }
 
@@ -74,24 +82,24 @@ public abstract class Conta {
 
         int numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Valor aleatorio 10000 até 99999
 
-//        for(int i = 0; i <= contas.size(); i++ ){
-//            while(contas.get(i) == numConta){
-//                numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Novo numero aleatorio
-//            }
-//        }
-
         for (int i: contas) { //foreach contas[i]
             while(i == numConta){
                 numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Novo numero aleatorio
             }
         }
-
         return numConta;
     }
 
-
-
     public abstract int movimento();
+
+    public void alterarStatus(){
+        setAtivo(!getAtivo());
+        if (getAtivo()) {
+            System.out.println("Conta Ativada");
+        } else {
+            System.out.println("Conta Desativada");
+        }
+    }
 
 }
 

@@ -71,7 +71,6 @@ public class AberturaContas {
         return codConta;
 	}
 
-
     public static int SelecionarContaEstudantil(ArrayList<Integer> numerosContas, ArrayList<ContaEstudantil> contas) {
         Scanner entrada = new Scanner(System.in);
         int count = 1, codConta;
@@ -103,7 +102,6 @@ public class AberturaContas {
 
         return codConta;
     }
-
 
     public static int SelecionarContaEmpresa(ArrayList<Integer> numerosContas, ArrayList<ContaEmpresa> contas) {
         Scanner entrada = new Scanner(System.in);

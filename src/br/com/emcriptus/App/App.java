@@ -32,7 +32,6 @@ public class App {
         }
     }
     public static void contaPoupanca(ArrayList<Integer> numerosContas, ArrayList<ContaPoupanca> contas){
-    	//Scanner sc = new Scanner(System.in);
     	int movimentacoes = 0, codConta;
     	codConta = AberturaContas.SelecionarContaPoupanca(numerosContas,contas);
     	while (true){
@@ -75,7 +74,6 @@ public class App {
     }
 
     public static void contaEspecial(ArrayList<Integer> numerosContas, ArrayList<ContaEspecial> contas) {
-        Scanner sc = new Scanner(System.in);
         int movimentacoes = 0, codConta;
 
         codConta = AberturaContas.SelecionarContaEspecial(numerosContas, contas);
@@ -150,4 +148,23 @@ public class App {
                 return;//adicionar uma tread para diminuir o tempo de carregamento
             }
         }
+
+    public static void statusConta(ArrayList<Integer> numerosContas,ArrayList<ContaPoupanca> poupancas,
+                                   ArrayList<ContaCorrente> correntes,ArrayList<ContaEspecial> especiais,
+                                   ArrayList<ContaEmpresa> empresas,ArrayList<ContaEstudantil> estudantis ){
+        int count = 0;
+
+
+
+        if(especiais.size() == 0){
+            System.out.println("Sem contas especiais.");
+        }else{
+            System.out.println("Contas Especiais: ");
+            for (ContaEspecial c : especiais) {
+                System.out.println(count + " > " + c.getNome() + " | "  + c.getAtivo());
+                count++;
+            }
+        }
+
+    }
 }
