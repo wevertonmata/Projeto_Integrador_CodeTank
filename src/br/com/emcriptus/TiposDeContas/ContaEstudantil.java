@@ -1,5 +1,8 @@
 package br.com.emcriptus.TiposDeContas;
 
+import br.com.emcriptus.App.Movimentacao;
+import br.com.emcriptus.App.TipoMovimentacao;
+
 import java.util.Scanner;
 
 public class ContaEstudantil extends Conta {
@@ -11,22 +14,33 @@ public class ContaEstudantil extends Conta {
         super(numero, cpf, nome);
         limiteEstudantil = 5000; //todo fazer constante
     }
-
+    //metodo movimento retorna 1 se ocorreu com sucesso e 0 se houve falha
     @Override
     public int movimento() {
-        Scanner sc = new Scanner(System.in);
+        String movimentoInformado;
+        TipoMovimentacao tipoMovimentacao = null;
+        double valorMovimentacao = 0;
+        Conta contaMovimentacao = this;
 
+        Scanner sc = new Scanner(System.in);
         if (getSaldo() == 0) {
             System.out.println("MOVIMENTO - C-Crédito:");
         } else {
             System.out.println("MOVIMENTO - D-debito ou C-Crédito:");
         }
-
-        String movimento = sc.nextLine().toUpperCase().trim();
-        while (!(movimento.equals("C") || movimento.equals("D"))){
-            movimento = sc.nextLine().toUpperCase().trim();
+        movimentoInformado = sc.nextLine().toUpperCase().trim();
+        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D"))){
+            System.out.println(String.format("A opção digitada %s não é valida", movimentoInformado));
+            System.out.println("Digite novamente");
+            movimentoInformado = sc.nextLine().toUpperCase().trim();
         }
-
+        //convertendo valor informado para enumerador do tipo de movimentacao (credito ou debito)
+        if (movimentoInformado.equals("C")){
+            tipoMovimentacao = TipoMovimentacao.CREDITO;
+        } else if (movimentoInformado.equals("D")) {
+            tipoMovimentacao = TipoMovimentacao.DEBITO;
+        }
+        //pegando o valor da transaçao informada
         System.out.println("Valor do movimento: R$");
 
         double valor = sc.nextDouble();
@@ -37,22 +51,36 @@ public class ContaEstudantil extends Conta {
             sc.nextLine();
         }
 
-        switch (movimento.toUpperCase()) {
-            case ("D") -> {
-                if (getSaldo() < valor) {
-                    System.out.println("Valor maior que saldo atual. Não é possível efeituar o debito");
-                    return 0;
-                }
-                debito(valor);
-                return 1;
-            }
-            case ("C") -> {
-                credito(valor);
-                return 1;
-            }
+        if (valor > 0){
+            valorMovimentacao = valor;
         }
-        return 0;
+
+        //inserir a movimentacao após a transacao
+
+        if (movimentoInformado.toUpperCase() == "D") {
+            if (getSaldo() < valor) {
+                System.out.println("Valor maior que saldo atual. Não é possível efeituar o debito");
+                return 0;
+            }
+            this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao,tipoMovimentacao,contaMovimentacao));
+            debito(valor);
+            return 1;
+        } else if (movimentoInformado.toUpperCase() == "C") {
+            this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao,tipoMovimentacao,contaMovimentacao));
+            credito(valor);
+            return 1;
+        } else if (usarEstudantil(valorMovimentacao)) {
+            this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+            credito(valor);
+            return 1;
+            }
+        else {
+            return 0;
+        }
     }
+
+
+
 
     @Override
     public void credito(double valor) {
@@ -76,6 +104,7 @@ public class ContaEstudantil extends Conta {
             else
             {
                 limiteEstudantil = limiteEstudantil - valor;
+
                 credito(valor);
                 return true;
             }

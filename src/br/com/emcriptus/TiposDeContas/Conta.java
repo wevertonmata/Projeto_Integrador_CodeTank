@@ -1,5 +1,7 @@
 package br.com.emcriptus.TiposDeContas;
 
+import br.com.emcriptus.App.Movimentacao;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,6 +13,8 @@ public abstract class Conta {
     private final String cnpj;
     private double saldo;
     private final String nome;
+
+    public ArrayList<Movimentacao> listaMovimentacoes = new ArrayList<>();
 
     private boolean ativo;
 

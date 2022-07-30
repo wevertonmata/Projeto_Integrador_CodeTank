@@ -142,6 +142,7 @@ public class App {
                 double valorEmprestimo = Double.parseDouble(sc.nextLine().trim());
                 boolean deuCertoEmprestimo = contas.get(codConta).usarEstudantil(valorEmprestimo);
                 if (deuCertoEmprestimo) {
+                    contas.get(codConta).listaMovimentacoes.add(new Movimentacao(valorEmprestimo,TipoMovimentacao.CREDITO,contas.get(codConta) ));
                     System.out.println("Emprestimo executado com sucesso! :)");
                 } else {
                     System.out.println("Nao foi possivel solicitar o empréstimo :/");
