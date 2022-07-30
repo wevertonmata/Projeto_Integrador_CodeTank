@@ -21,9 +21,9 @@ public class ContaEmpresa extends Conta {
             System.out.println("MOVIMENTO - D-debito ou C-Crédito:");
         }
 
-        String movimento = sc.nextLine().trim();
+        String movimento = sc.nextLine().toUpperCase().trim();
         while (!(movimento.equals("C") || movimento.equals("D"))){
-            movimento = sc.nextLine().trim();
+            movimento = sc.nextLine().toUpperCase().trim();
         }
 
         System.out.println("Valor do movimento: R$");

@@ -28,6 +28,11 @@ public abstract class Conta {
     }
 
 
+    public String getCnpj() {
+        return cnpj;
+    }
+
+
     public boolean isAtivo() {
         return ativo;
     }
