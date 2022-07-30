@@ -17,6 +17,7 @@ public class App {
 
 
         while (true) {
+
             int op = Interface.telaInicial();
 
             switch (op) {
@@ -38,12 +39,9 @@ public class App {
             Interface.tela2(0,contas.get(codConta),movimentacoes); //Print informações da Tela 2
 
             movimentacoes += contas.get(codConta).movimento(); //Contador de movimentacoes
-            
-            boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
 
-            if (movimentacoes >= 10 || respContinuar) {
-                System.out.println(movimentacoes);
-            } else {
+            boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
+            if (!respContinuar) {
                 break;
             }
         }
@@ -92,15 +90,6 @@ public class App {
             if (!respContinuar) {
                 break;
             }
-
-            if(movimentacoes >= 10){
-                respContinuar = Interface.continuar();
-                if (!respContinuar) {
-                    break;
-                }
-            }
-
-
         }
     }
     public static void contaEmpresa(ArrayList<Integer> numerosContas, ArrayList<ContaEmpresa> contas) {
