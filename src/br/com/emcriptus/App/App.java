@@ -8,10 +8,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         ArrayList<Integer> numerosContas = new ArrayList<>();// Armazenar todos números das contas
-
-        ArrayList<Movimentacao> listaMovimentacoes = new ArrayList<>();//armazenar listademovimentações
-
-        ArrayList<ContaCorrente> contasCorrente = new ArrayList<>(); // Mais de uma conta por tipo de conta
+         ArrayList<ContaCorrente> contasCorrente = new ArrayList<>(); // Mais de uma conta por tipo de conta
         ArrayList<ContaPoupanca> contasPoupanca = new ArrayList<>();
         ArrayList<ContaEstudantil> contasEstudantil = new ArrayList<>();
         ArrayList<ContaEmpresa> contasEmpresa = new ArrayList<>();
@@ -58,9 +55,10 @@ public class App {
         //Faz criação de conta e retorna o index dela no arraylist
 
         while (true) {
-            Interface.tela2(1, contas.get(codConta), movimentacoes); //Print informações da Tela 2
+            Interface.tela2(1, contas.get(codConta), contas.get(codConta).getMovimentacoes()); //Print informações da Tela 2
 
-            movimentacoes = contas.get(codConta).getMovimentacoes();  // Retorna 1 se for executada ação e retorna 0 se não for.
+//            movimentacoes = contas.get(codConta).getMovimentacoes();  // Retorna 1 se for executada ação e retorna 0 se não for.
+            contas.get(codConta).movimento();
 
             boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
 

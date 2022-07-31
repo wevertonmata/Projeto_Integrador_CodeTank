@@ -8,52 +8,55 @@ import java.util.function.Predicate;
 
 public abstract class Conta {
 
-    private final int numero;
-    private final String cpf;
+    private int numero;
+    private String cpf;
 
-    private final String cnpj;
+    private String cnpj;
     private double saldo;
-    private final String nome;
+    private String nome;
 
     public ArrayList<Movimentacao> listaMovimentacoes = new ArrayList<Movimentacao>();
 
     private boolean ativo;
 
 
-    public Conta(int numero, String cpf, String nome) {
-        this.numero = numero;
-        this.cpf = cpf;
+    public Conta(int _numero, String _cpf, String _nome) {
+        this.numero = _numero;
+        this.cpf = _cpf;
         this.cnpj = "N/A";
-        this.nome = nome;
+        this.nome = _nome;
     }
-    public Conta(String cnpj, int numero , String nome) {
-        this.numero = numero;
+    public Conta(String _cnpj, int _numero , String _nome) {
+        this.numero = _numero;
         this.cpf = "N/A";
-        this.cnpj = cnpj;
-        this.nome = nome;
+        this.cnpj = _cnpj;
+        this.nome = _nome;
     }
 
 
     public String getCnpj() {
-        return cnpj;
+        return this.cnpj;
     }
 
 
     public boolean isAtivo() {
-        return ativo;
+
+        return this.ativo;
     }
 
     public String getNome() {
-		return nome;
+
+        return this.nome;
 	}
 
 
 	public String getCpf() {
-        return cpf;
+
+        return this.cpf;
     }
 
     public int getNumero() {
-        return numero;
+        return this.numero;
     }
 
     public double getSaldo() {
@@ -69,6 +72,7 @@ public abstract class Conta {
 
 
     }
+
     public int getMovimentacoes() {
         int movimentacoes = 0;
         for (int i = 0; i < listaMovimentacoes.size(); i++) {
@@ -81,8 +85,9 @@ public abstract class Conta {
 
     }
 
+
     public void setSaldo(double saldo) {
-        this.saldo = saldo;
+//        this.saldo = saldo;
     }// pode setar??
 
     public double debito(double valor){ //Perguntar o professor se pode ser publico

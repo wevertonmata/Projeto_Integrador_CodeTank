@@ -24,7 +24,11 @@ public class ContaEstudantil extends Conta {
         Conta contaMovimentacao = this;
 
         Scanner sc = new Scanner(System.in);
-
+        if(getMovimentacoes()>=10)
+        {
+            System.out.println("Nao é possivel fazer mais operacoes");
+            return 0;
+        }
         if (getSaldo() == 0) {
             System.out.println("MOVIMENTO - C-Crédito ou E-Empréstimo:");
         } else {

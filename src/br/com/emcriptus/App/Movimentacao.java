@@ -47,6 +47,8 @@ public class Movimentacao {
             this.valorMovimentacao = _valorMovimentacao * (+1); //transforma em positivo
         } else if (this.tipoMovimentacao == TipoMovimentacao.DEBITO) {
             this.valorMovimentacao = _valorMovimentacao * (-1);//garantir valor negativo
+        }else if (this.tipoMovimentacao == TipoMovimentacao.SOLICITARTALAO) {
+            this.valorMovimentacao = _valorMovimentacao * (-1);//garantir valor negativo
         }//garantir que a classe especializada de movimentacao trate os tipos de operacoes implementados
 
     }
@@ -58,6 +60,9 @@ public class Movimentacao {
 
     public double getValor(){
         return this.valorMovimentacao;
+    }
+    public TipoMovimentacao getTipoMovimentacao(){
+        return this.tipoMovimentacao;
     }
 
 
