@@ -12,7 +12,8 @@ public class ContaEstudantil extends Conta {
     public ContaEstudantil(int numero, String cpf, String nome)
     {
         super(numero, cpf, nome);
-        limiteEstudantil = 5000; //todo fazer constante
+        limiteEstudantil = 5000;
+
     }
     //metodo movimento retorna 1 se ocorreu com sucesso e 0 se houve falha
     @Override
@@ -23,22 +24,26 @@ public class ContaEstudantil extends Conta {
         Conta contaMovimentacao = this;
 
         Scanner sc = new Scanner(System.in);
+
         if (getSaldo() == 0) {
-            System.out.println("MOVIMENTO - C-Crédito:");
+            System.out.println("MOVIMENTO - C-Crédito ou E-Empréstimo:");
         } else {
-            System.out.println("MOVIMENTO - D-debito ou C-Crédito:");
+            System.out.println("MOVIMENTO - D-debito ou C-Crédito ou E-Empréstimo:");
         }
         movimentoInformado = sc.nextLine().toUpperCase().trim();
-        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D"))){
+        //caso a pessoa digite algo diferente de s e n
+        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("E"))) {
             System.out.println(String.format("A opção digitada %s não é valida", movimentoInformado));
             System.out.println("Digite novamente");
             movimentoInformado = sc.nextLine().toUpperCase().trim();
         }
         //convertendo valor informado para enumerador do tipo de movimentacao (credito ou debito)
-        if (movimentoInformado.equals("C")){
+        if (movimentoInformado.equals("C")) {
             tipoMovimentacao = TipoMovimentacao.CREDITO;
         } else if (movimentoInformado.equals("D")) {
             tipoMovimentacao = TipoMovimentacao.DEBITO;
+        } else if (movimentoInformado.equals("E")) {
+            tipoMovimentacao = TipoMovimentacao.EMPRESTIMO;
         }
         //pegando o valor da transaçao informada
         System.out.println("Valor do movimento: R$");
@@ -51,35 +56,42 @@ public class ContaEstudantil extends Conta {
             sc.nextLine();
         }
 
-        if (valor > 0){
+        if (valor > 0) {
             valorMovimentacao = valor;
         }
 
         //inserir a movimentacao após a transacao
 
-        if (movimentoInformado.toUpperCase() == "D") {
+        if (movimentoInformado.toUpperCase().trim().equals("D")) {
             if (getSaldo() < valor) {
-                System.out.println("Valor maior que saldo atual. Não é possível efeituar o debito");
+                System.out.println("Valor maior que saldo atual. Não é possível efetuar o debito");
                 return 0;
+            } else if (valorMovimentacao < getSaldo()) {
+                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+                debito(valor);
+                return 1;
             }
-            this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao,tipoMovimentacao,contaMovimentacao));
-            debito(valor);
-            return 1;
-        } else if (movimentoInformado.toUpperCase() == "C") {
-            this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao,tipoMovimentacao,contaMovimentacao));
-            credito(valor);
-            return 1;
-        } else if (usarEstudantil(valorMovimentacao)) {
+        } else if (movimentoInformado.toUpperCase().trim().equals("C")) {
             this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
             credito(valor);
             return 1;
+        } else if (movimentoInformado.toUpperCase().trim().equals("E")) {
+            if(usarEstudantil(valor)){
+                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+                return 1;
             }
-        else {
+            return 0;
+
+        } else {
             return 0;
         }
+        return 0;
     }
 
-
+    @Override
+    public double debito(double valor) {
+        return super.debito(valor);
+    }
 
 
     @Override
@@ -87,10 +99,7 @@ public class ContaEstudantil extends Conta {
         super.credito(valor);
     }
 
-    @Override
-    public double debito(double valor) {
-        return super.debito(valor);
-    }
+
 
     @Override
     public double getSaldo() {
