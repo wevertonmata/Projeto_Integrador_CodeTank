@@ -15,7 +15,7 @@ public class AberturaContas {
             System.out.println(count + " > " + c.getNome() + " | "  + c.getCpf());
             count++;
         }
-        System.out.println("0 > Criar uma nova conta: ");
+        System.out.println("Digite o número 0 para criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = sc.nextInt();
@@ -48,7 +48,7 @@ public class AberturaContas {
             System.out.println(count + " > " + cp.getNome() + " | "  + cp.getCpf());
             count++;
         }
-        System.out.println("0 > Criar uma nova conta: ");
+        System.out.println("Digite o número 0 para criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = entrada.nextInt();
@@ -80,7 +80,7 @@ public class AberturaContas {
             System.out.println(count + " > " + cp.getNome() + " | "  + cp.getCpf());
             count++;
         }
-        System.out.println("0 > Criar um nova conta: ");
+        System.out.println("Digite o número 0 para criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = entrada.nextInt();
@@ -112,7 +112,7 @@ public class AberturaContas {
             System.out.println(count + " > " + cp.getNome() + " | "  + cp.getCpf());
             count++;
         }
-        System.out.println("0 > Criar um nova conta: ");
+        System.out.println("Digite o número 0 para criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = entrada.nextInt();
@@ -144,7 +144,7 @@ public class AberturaContas {
             System.out.println(count + " > " + c.getNome() + " | "  + c.getCpf());
             count++;
         }
-        System.out.println("0 > Criar uma nova conta: ");
+        System.out.println("Digite o número 0 para criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = sc.nextInt();

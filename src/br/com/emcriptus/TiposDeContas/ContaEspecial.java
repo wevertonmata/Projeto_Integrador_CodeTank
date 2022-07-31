@@ -3,15 +3,12 @@ package br.com.emcriptus.TiposDeContas;
 import java.util.Scanner;
 
 public class ContaEspecial extends Conta {
-    private double limiteEspecial = 1000.00;
+    private double limiteEspecial = 1000.00; // Regra limite da conta
 
     public ContaEspecial(int numero, String cpf, String nome) {
         super(numero, cpf, nome);
     }
 
-    /*
-    public void usarLimite (double valor) { LOGICA DA CONTA
-     */
 
     public int movimento() {
         Scanner sc = new Scanner(System.in);
@@ -88,7 +85,7 @@ public class ContaEspecial extends Conta {
     public int usarEspecial(double valor) {
 
         if(valor > limiteEspecial) {
-            System.out.println("Limite Especial Indisponível para cliente");
+            System.out.println("Limite Especial Indisponível para o cliente");
             System.out.println("Limite Especial Disponível: R$" +limiteEspecial);
             return 0;
         }

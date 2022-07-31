@@ -48,7 +48,7 @@ public class ContaPoupanca extends Conta {
         switch (movimento.toUpperCase()) {
             case ("D") -> {
                 if (getSaldo() < valor) {
-                    System.out.println("Valor maior que saldo atual. Não é possível efeituar o debito");
+                    System.out.println("Valor maior que saldo atual. Não é possível efetuar o debito");
                     return 0;
                 }
 
