@@ -4,6 +4,7 @@ import br.com.emcriptus.App.Movimentacao;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Predicate;
 
 public abstract class Conta {
 
@@ -14,9 +15,10 @@ public abstract class Conta {
     private double saldo;
     private final String nome;
 
-    public ArrayList<Movimentacao> listaMovimentacoes = new ArrayList<>();
+    public ArrayList<Movimentacao> listaMovimentacoes = new ArrayList<Movimentacao>();
 
     private boolean ativo;
+
 
     public Conta(int numero, String cpf, String nome) {
         this.numero = numero;
@@ -55,7 +57,28 @@ public abstract class Conta {
     }
 
     public double getSaldo() {
-        return saldo;
+        double valorSaldo = 0;
+        for (int i = 0; i < listaMovimentacoes.size(); i++) {
+            if(listaMovimentacoes.get(i).getConta()==this)
+            {
+                valorSaldo += listaMovimentacoes.get(i).getValor();
+            }
+        }
+        return valorSaldo;
+
+
+
+    }
+    public int getMovimentacoes() {
+        int movimentacoes = 0;
+        for (int i = 0; i < listaMovimentacoes.size(); i++) {
+            if(listaMovimentacoes.get(i).getConta()==this)
+            {
+                movimentacoes++;
+            }
+        }
+        return movimentacoes;
+
     }
 
     public void setSaldo(double saldo) {
@@ -63,14 +86,14 @@ public abstract class Conta {
     }// pode setar??
 
     public double debito(double valor){ //Perguntar o professor se pode ser publico
-        saldo -= valor;
-        return  saldo;
+//        saldo -= valor;
+        return  0;
     }
 
     public void credito(double valor){
     	System.out.println("Crédito efetuado com sucesso R$" + valor);
-        saldo += valor;
-        System.out.println("Saldo Atual R$" + saldo);
+//        saldo += valor;
+//        System.out.println("Saldo Atual R$" + saldo);
     };
 
     public static int gerarNumConta(ArrayList<Integer> contas) {

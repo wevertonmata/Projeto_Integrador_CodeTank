@@ -52,6 +52,15 @@ public class Movimentacao {
     }
 
 
+    public Conta getConta(){
+        return this.contaMovimentacao;
+    }
+
+    public double getValor(){
+        return this.valorMovimentacao;
+    }
+
+
 
 
 }

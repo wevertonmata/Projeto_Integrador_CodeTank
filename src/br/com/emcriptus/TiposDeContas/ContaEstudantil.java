@@ -56,9 +56,8 @@ public class ContaEstudantil extends Conta {
             sc.nextLine();
         }
 
-        if (valor > 0) {
-            valorMovimentacao = valor;
-        }
+
+        valorMovimentacao = valor;
 
         //inserir a movimentacao após a transacao
 
@@ -68,20 +67,20 @@ public class ContaEstudantil extends Conta {
                 return 0;
             } else if (valorMovimentacao < getSaldo()) {
                 this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
-                debito(valor);
+//                debito(valor);
                 return 1;
             }
         } else if (movimentoInformado.toUpperCase().trim().equals("C")) {
             this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
-            credito(valor);
+//            credito(valor);
             return 1;
         } else if (movimentoInformado.toUpperCase().trim().equals("E")) {
-            if(usarEstudantil(valor)){
-                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+            if(usarEstudantil(valor))
+            {
+                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, TipoMovimentacao.CREDITO, contaMovimentacao));
                 return 1;
             }
             return 0;
-
         } else {
             return 0;
         }
@@ -108,13 +107,13 @@ public class ContaEstudantil extends Conta {
 
     //seta credito se tem limite disponviel
     public boolean usarEstudantil(double valor){
-            if(valor > limiteEstudantil)
+            if(valor > limiteEstudantil){
+                System.out.println("Erro ao solicitiar emprestimo");
                 return false;
-            else
-            {
+            }
+            else{
+                System.out.println("Sucesso");
                 limiteEstudantil = limiteEstudantil - valor;
-
-                credito(valor);
                 return true;
             }
     }
