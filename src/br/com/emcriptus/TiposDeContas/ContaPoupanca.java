@@ -32,19 +32,19 @@ public class ContaPoupanca extends Conta {
 
         if(getMovimentacoes()>=10)
         {
-            System.out.println("Nao é possivel fazer mais operacoes");
+            System.out.println("Não é possível fazer mais operações");
             return 0;
         }
 
         if (getSaldo() == 0) {
             System.out.println("MOVIMENTO - C-Crédito:");
         } else {
-            System.out.println("MOVIMENTO - D-debito ou C-Crédito ou M-Simular Juros Poupança:");
+            System.out.println("MOVIMENTO - D-Débito || C-Crédito || M-Simular Juros Poupança:");
         }
 
         movimentoInformado = sc.nextLine().toUpperCase().trim();
         while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("M"))) {
-            System.out.println(String.format("A opção digitada %s não é valida", movimentoInformado));
+            System.out.println(String.format("A opção digitada %s não é válida", movimentoInformado));
             System.out.println("Digite novamente");
             movimentoInformado = sc.nextLine().toUpperCase().trim();
         }
@@ -68,10 +68,9 @@ public class ContaPoupanca extends Conta {
             valorMovimentacao = valor;
         }
 
-
         if (movimentoInformado.toUpperCase().trim().equals("D")) {
             if (getSaldo() < valorMovimentacao) {
-                System.out.println("Valor maior que saldo atual. Não é possível efetuar o debito");
+                System.out.println("Valor maior que o saldo atual. Não é possível efetuar o débito");
                 return 0;
             } else if (valorMovimentacao < getSaldo()) {
                 this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));

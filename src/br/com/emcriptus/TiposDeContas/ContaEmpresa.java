@@ -29,9 +29,9 @@ public class ContaEmpresa extends Conta {
             return 0;
         }
         if (getSaldo() == 0) {
-            System.out.println("MOVIMENTO - C-Crédito ou E-Empréstimo: ou  S-Ativa/Desativa Conta:");
+            System.out.println("MOVIMENTO - C-Crédito || E-Empréstimo: ||  S-Ativa/Desativa Conta:");
         } else {
-            System.out.println("MOVIMENTO - D-debito ou C-Crédito ou E-Empréstimo: ou S-Ativa/Desativa Conta:");
+            System.out.println("MOVIMENTO - D-debito || C-Crédito || E-Empréstimo: || S-Ativa/Desativa Conta:");
         }
         movimentoInformado = sc.nextLine().toUpperCase().trim();
         //caso a pessoa digite algo diferente de s e n

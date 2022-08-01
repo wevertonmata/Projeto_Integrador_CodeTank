@@ -60,10 +60,10 @@ public class    ContaCorrente extends Conta{
         int movimentacoes = this.getMovimentacoes();
 
         if ((getSaldo() == valor)) {
-            System.out.println("MOVIMENTO - C-Crédito ou S-Ativa/Desativa Conta:");
+            System.out.println("MOVIMENTO - C-Crédito || S-Ativa/Desativa Conta:");
         }
         else if((getSaldo() > valor)) {
-            System.out.println("MOVIMENTO - D-debito ou C-Crédito ou S-Ativa/Desativa Conta:");
+            System.out.println("MOVIMENTO - D-debito || C-Crédito || S-Ativa/Desativa Conta:");
         }
         String movimento = sc.nextLine().toUpperCase().trim();
         while (!(movimento.equals("C") || movimento.equals("D") || (movimento.equals("S")) )){

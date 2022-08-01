@@ -27,18 +27,18 @@ public class  ContaEspecial extends Conta {
 
         if(getMovimentacoes()>=10)
         {
-            System.out.println("Nao é possivel fazer mais operacoes");
+            System.out.println("Não é possível fazer mais operações");
             return 0;
         }
 
-        System.out.println("MOVIMENTO - C-Crédito || MOVIMENTO - D-debito");
+        System.out.println("MOVIMENTO - C-Crédito || D-Débito");
         System.out.println("Limite especial disponível: R$" +limiteEspecial);
 
 
         movimentoInformado = sc.nextLine().toUpperCase().trim();
         //caso a pessoa digite algo diferente de s e n
         while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D"))) {
-            System.out.println(String.format("A opção digitada %s não é valida", movimentoInformado));
+            System.out.println(String.format("A opção digitada %s não é válida", movimentoInformado));
             System.out.println("Digite novamente");
             movimentoInformado = sc.nextLine().toUpperCase().trim();
         }
@@ -66,7 +66,7 @@ public class  ContaEspecial extends Conta {
         if (movimentoInformado.toUpperCase().trim().equals("D")) {
             if (getSaldo() < valorMovimentacao){ //(100 < 150)
                 if( (limiteEspecial + getSaldo()) < valorMovimentacao) { //(1000 +100 < 150)
-                    System.out.println("Não foi possivel efetuar o débito");
+                    System.out.println("Não foi possível efetuar o débito");
                     return 0;
                 }
                 System.out.println("Você terá que usar o limite especial.");

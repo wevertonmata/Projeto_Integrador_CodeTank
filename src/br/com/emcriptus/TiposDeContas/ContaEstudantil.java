@@ -26,18 +26,18 @@ public class ContaEstudantil extends Conta {
         Scanner sc = new Scanner(System.in);
         if(getMovimentacoes()>=10)
         {
-            System.out.println("Nao é possivel fazer mais operacoes");
+            System.out.println("Não é possível fazer mais operações");
             return 0;
         }
         if (getSaldo() == 0) {
-            System.out.println("MOVIMENTO - C-Crédito ou E-Empréstimo:");
+            System.out.println("MOVIMENTO - C-Crédito || E-Empréstimo:");
         } else {
-            System.out.println("MOVIMENTO - D-debito ou C-Crédito ou E-Empréstimo:");
+            System.out.println("MOVIMENTO - D-Débito || C-Crédito || E-Empréstimo:");
         }
         movimentoInformado = sc.nextLine().toUpperCase().trim();
         //caso a pessoa digite algo diferente de s e n
         while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("E"))) {
-            System.out.println(String.format("A opção digitada %s não é valida", movimentoInformado));
+            System.out.println(String.format("A opção digitada %s não é válida", movimentoInformado));
             System.out.println("Digite novamente");
             movimentoInformado = sc.nextLine().toUpperCase().trim();
         }
@@ -68,7 +68,7 @@ public class ContaEstudantil extends Conta {
 
         if (movimentoInformado.toUpperCase().trim().equals("D")) {
             if (getSaldo() < valor) {
-                System.out.println("Valor maior que saldo atual. Não é possível efetuar o debito");
+                System.out.println("Valor maior que saldo atual. Não é possível efetuar o débito");
                 return 0;
             } else if (valorMovimentacao < getSaldo()) {
                 this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
@@ -113,11 +113,11 @@ public class ContaEstudantil extends Conta {
     //seta credito se tem limite disponviel
     public boolean usarEstudantil(double valor){
             if(valor > limiteEstudantil){
-                System.out.println("Erro ao solicitiar emprestimo");
+                System.out.println("Empréstimo indisponível");
                 return false;
             }
             else{
-                System.out.println("Emprestimo Consedido com Sucesso");
+                System.out.println("Empréstimo concedido com sucesso");
                 limiteEstudantil = limiteEstudantil - valor;
                 return true;
             }
