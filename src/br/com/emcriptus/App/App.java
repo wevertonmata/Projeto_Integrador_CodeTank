@@ -30,8 +30,7 @@ public class App {
             }
         }
     }
-
-
+    
     public static void contaPoupanca(ArrayList<Integer> numerosContas, ArrayList<ContaPoupanca> contas) {
         //Scanner sc = new Scanner(System.in);
         int movimentacoes = 0, codConta;

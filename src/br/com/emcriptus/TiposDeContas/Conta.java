@@ -11,11 +11,8 @@ public abstract class Conta {
 
     private int numero;
     private String cpf;
-
     private String cnpj;
-    private double saldo;
     private String nome;
-
     public ArrayList<Movimentacao> listaMovimentacoes = new ArrayList<Movimentacao>();
     private boolean ativo;
 
@@ -50,7 +47,6 @@ public abstract class Conta {
 
         return this.nome;
 	}
-
 
 	public String getCpf() {
 
@@ -87,33 +83,6 @@ public abstract class Conta {
 
     }
 
-    public double debito(double valor){ //Perguntar o professor se pode ser publico
-
-//        saldo -= valor;
-        return  0;
-
-    }
-
-    public void credito(double valor){
-    	System.out.println("Crédito efetuado com sucesso R$" + valor);
-//        saldo += valor;
-//        System.out.println("Saldo Atual R$" + saldo);
-    };
-
-    public static int gerarNumConta(ArrayList<Integer> contas) {
-        Random random = new Random();
-
-        int numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Valor aleatorio 10000 até 99999
-
-        for (int i: contas) { //foreach contas[i]
-            while(i == numConta){
-                numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Novo numero aleatorio
-            }
-        }
-        return numConta;
-    }
-
-
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
@@ -127,8 +96,20 @@ public abstract class Conta {
         }
     }
 
-
     public abstract int movimento();
+
+    public static int gerarNumConta(ArrayList<Integer> contas) {
+        Random random = new Random();
+
+        int numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Valor aleatorio 10000 até 99999
+
+        for (int i: contas) { //foreach contas[i]
+            while(i == numConta){
+                numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Novo numero aleatorio
+            }
+        }
+        return numConta;
+    }
 
 
 

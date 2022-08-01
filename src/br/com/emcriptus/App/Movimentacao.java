@@ -3,8 +3,6 @@ package br.com.emcriptus.App;
 import br.com.emcriptus.TiposDeContas.Conta;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 
@@ -25,7 +23,6 @@ public class Movimentacao {
             throw new RuntimeException("Não é possível criar uma movimentação sem informar valor, tipo e conta");
         }
     }
-
 
     public Movimentacao(double _valorMovimentacao, TipoMovimentacao _tipoMovimentacao, Conta _contaMovimentacao){
         //validando se os dados foram informados corretamente
@@ -54,8 +51,6 @@ public class Movimentacao {
         }//garantir que a classe especializada de movimentacao trate os tipos de operacoes implementados
 
     }
-
-
     public Conta getConta(){
         return this.contaMovimentacao;
     }

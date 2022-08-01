@@ -16,13 +16,6 @@ public class ContaPoupanca extends Conta {
         super(numero, cpf, nome);
     }
 
-//    @Override
-//    public double debito(double valor) {
-//        double saldo = super.getSaldo() - valor;
-//        super.setSaldo(saldo);
-//        return saldo;
-//    }
-
     public int movimento() {
 
         Scanner sc = new Scanner(System.in);
@@ -101,12 +94,6 @@ public class ContaPoupanca extends Conta {
 
         return 0;
     }
-
-//    @Override
-//    public void credito(double valor) {
-//       double saldo = super.getSaldo() + valor;
-//        super.setSaldo(saldo);
-//    }
 
     public double correcao(LocalDate dataInformada) {
         double valorSaldo = 0, somaSaldoCorrigido = 0;

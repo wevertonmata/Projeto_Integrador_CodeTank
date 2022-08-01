@@ -10,30 +10,21 @@ import java.util.Scanner;
 
 public class    ContaCorrente extends Conta{
 
-
-
+    private int contadorTalao = 0;
     public ContaCorrente(int numero, String cpf, String nome) {
 
         super(numero, cpf, nome);
     }
 
-    @Override
-    public double debito(double valor){
-
-//        double saldo =  super.getSaldo() - valor;
-//        super.setSaldo(saldo);
-//        return  saldo;
-        return 0;
-
-    }
-
     public int getTaloes() {
-        int contadorTalao = 0;
+        int contadorTalaoInterno = 0;
         for (int i = 0; i < listaMovimentacoes.size(); i++) {
             if(listaMovimentacoes.get(i).getConta()==this) ;
             {
                 if (listaMovimentacoes.get(i).getTipoMovimentacao().equals(TipoMovimentacao.SOLICITARTALAO)) {
-                    contadorTalao++;
+                    contadorTalaoInterno++;
+                    contadorTalao += 1;
+
                 }
 
             }

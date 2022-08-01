@@ -15,7 +15,6 @@ public class  ContaEspecial extends Conta {
         this.limiteEspecial = 1000;
     }
 
-
     public int movimento() {
 
         String movimentoInformado;
@@ -102,20 +101,6 @@ public class  ContaEspecial extends Conta {
         }
         //return 0;
 
-    }
-    public void credito(double valor) {
-
-        super.credito(valor);
-    }
-
-    @Override
-    public double debito(double valor) {
-        return super.debito(valor);
-    }
-
-    @Override
-    public double getSaldo() {
-        return super.getSaldo();
     }
 
     //seta credito se tem limite disponviel

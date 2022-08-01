@@ -15,7 +15,6 @@ public class ContaEstudantil extends Conta {
         limiteEstudantil = 5000;
 
     }
-    //metodo movimento retorna 1 se ocorreu com sucesso e 0 se houve falha
     @Override
     public int movimento() {
 
@@ -106,24 +105,6 @@ public class ContaEstudantil extends Conta {
             return 0;
         }
         return 0;
-    }
-
-    @Override
-    public double debito(double valor) {
-        return super.debito(valor);
-    }
-
-
-    @Override
-    public void credito(double valor) {
-        super.credito(valor);
-    }
-
-
-
-    @Override
-    public double getSaldo() {
-        return super.getSaldo();
     }
 
     //seta credito se tem limite disponviel

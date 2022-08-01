@@ -102,22 +102,6 @@ public class ContaEmpresa extends Conta {
         return 0;
     }
 
-
-
-    @Override
-    public void credito(double valor) {
-        super.credito(valor);
-    }
-
-    @Override
-    public double debito(double valor) {
-        return super.debito(valor);
-    }
-
-    @Override
-    public double getSaldo() {
-        return super.getSaldo();
-    }
     public boolean pedirEmprestimo (double valor){
         if ( valor > emprestimoEmpresa) {
             System.out.println("Limite de emprestimo excedido");
