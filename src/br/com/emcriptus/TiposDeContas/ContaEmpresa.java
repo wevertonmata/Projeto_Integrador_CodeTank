@@ -29,17 +29,27 @@ public class ContaEmpresa extends Conta {
             return 0;
         }
         if (getSaldo() == 0) {
-            System.out.println("MOVIMENTO - C-Crédito ou E-Empréstimo:");
+            System.out.println("MOVIMENTO - C-Crédito ou E-Empréstimo: ou  S-Ativa/Desativa Conta:");
         } else {
-            System.out.println("MOVIMENTO - D-debito ou C-Crédito ou E-Empréstimo:");
+            System.out.println("MOVIMENTO - D-debito ou C-Crédito ou E-Empréstimo: ou S-Ativa/Desativa Conta:");
         }
         movimentoInformado = sc.nextLine().toUpperCase().trim();
         //caso a pessoa digite algo diferente de s e n
-        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("E"))) {
+
+        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("E") || (movimentoInformado.equals("S")))) {
             System.out.println(String.format("A opção digitada %s não é valida", movimentoInformado));
             System.out.println("Digite novamente");
+
             movimentoInformado = sc.nextLine().toUpperCase().trim();
         }
+        if((movimentoInformado.equals("C")  || movimentoInformado.equals("D") || movimentoInformado.equals("E")) && !getAtivo()){
+            System.out.println("A conta está inativada.");
+            return 0;
+        } else if (movimentoInformado.equals("S")) {
+            alterarStatus();
+            return 1;
+        }
+
         //convertendo valor informado para enumerador do tipo de movimentacao (credito ou debito)
         if (movimentoInformado.equals("C")) {
             tipoMovimentacao = TipoMovimentacao.CREDITO;
@@ -47,8 +57,9 @@ public class ContaEmpresa extends Conta {
             tipoMovimentacao = TipoMovimentacao.DEBITO;
         } else if (movimentoInformado.equals("E")) {
             tipoMovimentacao = TipoMovimentacao.EMPRESTIMO;
-            System.out.println("Limite máximo de empréstimo R$" + emprestimoEmpresa);
+           System.out.println("Limite máximo de empréstimo R$" + emprestimoEmpresa);
         }
+
 
         //pegando o valor da transaçao informada
         System.out.println("Valor do movimento: R$");
@@ -90,6 +101,8 @@ public class ContaEmpresa extends Conta {
         }
         return 0;
     }
+
+
 
     @Override
     public void credito(double valor) {
