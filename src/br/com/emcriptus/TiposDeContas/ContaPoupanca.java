@@ -16,12 +16,12 @@ public class ContaPoupanca extends Conta {
         super(numero, cpf, nome);
     }
 
-    @Override
-    public double debito(double valor) {
-        double saldo = super.getSaldo() - valor;
-        super.setSaldo(saldo);
-        return saldo;
-    }
+//    @Override
+//    public double debito(double valor) {
+//        double saldo = super.getSaldo() - valor;
+//        super.setSaldo(saldo);
+//        return saldo;
+//    }
 
     public int movimento() {
         Scanner sc = new Scanner(System.in);
@@ -69,7 +69,6 @@ public class ContaPoupanca extends Conta {
         }
 
 
-
         if (movimentoInformado.toUpperCase().trim().equals("D")) {
             if (getSaldo() < valorMovimentacao) {
                 System.out.println("Valor maior que saldo atual. Não é possível efetuar o debito");
@@ -86,29 +85,22 @@ public class ContaPoupanca extends Conta {
                 String DataTemporaria = sc.nextLine();
                 DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDate DataInformada = LocalDate.parse(DataTemporaria, DATEFORMATTER);
-                System.out.println("Projeção do Saldo: R$" + getSaldoProjeçao(DataInformada));
+                System.out.println("Projeção do Saldo: R$" + correcao(DataInformada));
             return 0;
         } else {
             return 0;
         }
 
-
-
         return 0;
     }
 
-    @Override
-    public void credito(double valor) {
-       double saldo = super.getSaldo() + valor;
-        super.setSaldo(saldo);
-    }
-    public void correcao() {
-        setSaldo(( getSaldo()*0.005)+getSaldo());
+//    @Override
+//    public void credito(double valor) {
+//       double saldo = super.getSaldo() + valor;
+//        super.setSaldo(saldo);
+//    }
 
-
-    }
-
-    public double getSaldoProjeçao(LocalDate dataInformada) {
+    public double correcao(LocalDate dataInformada) {
         double valorSaldo = 0, somaSaldoCorrigido = 0;
 
         for (int i = 0; i < listaMovimentacoes.size(); i++) {
@@ -122,8 +114,6 @@ public class ContaPoupanca extends Conta {
         }
         return somaSaldoCorrigido;
     }
-
-    //getSaldoProjeçao return double, (DateTime)
 }
 
 

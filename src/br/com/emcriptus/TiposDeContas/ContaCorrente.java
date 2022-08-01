@@ -58,27 +58,26 @@ public class    ContaCorrente extends Conta{
         Scanner sc = new Scanner(System.in);
         double valor = 0;
         int movimentacoes = this.getMovimentacoes();
-        boolean solicitaInput = false;
-        if(movimentacoes ==10) {
-            System.out.println("MOVIMENTO - T: Solicitar talao");
-        }
-        else if ((getSaldo() == valor)) {
-            solicitaInput = true;
-            System.out.println("MOVIMENTO - C-Crédito:");
+
+        if ((getSaldo() == valor)) {
+            System.out.println("MOVIMENTO - C-Crédito ou S-Ativa/Desativa Conta:");
         }
         else if((getSaldo() > valor)) {
-            solicitaInput = true;
-            System.out.println("MOVIMENTO - D-debito ou C-Crédito:");
+            System.out.println("MOVIMENTO - D-debito ou C-Crédito ou S-Ativa/Desativa Conta:");
         }
         String movimento = sc.nextLine().toUpperCase().trim();
-        while (!(movimento.equals("C") || movimento.equals("D") || ( movimento.equals("T")) && getMovimentacoes()>=10)){
+        while (!(movimento.equals("C") || movimento.equals("D") || (movimento.equals("S")) )){
             movimento = sc.nextLine().toUpperCase().trim();
         }
 
-        if(solicitaInput)
-        {
+        if((movimento.equals("C")  || movimento.equals("D")) && !getAtivo()){
+            System.out.println("A conta está inativada.");
+            return 0;
+        } else if (movimento.equals("S")) {
+            alterarStatus();
+            return 1;
+        } else{
             System.out.println("Valor do movimento: R$");
-
             valor = sc.nextDouble();
             sc.nextLine();
 
@@ -86,32 +85,25 @@ public class    ContaCorrente extends Conta{
                 valor = sc.nextDouble();
                 sc.nextLine();
             }
-
-            switch (movimento.toUpperCase()) {
-                case ("D") -> {
-                    if(getSaldo() < valor){
-                        System.out.println("Valor maior que saldo atual. Não é possível efeituar o debito");
-                        return 0;
-                    }
-//                debito(valor);
-                    listaMovimentacoes.add(new Movimentacao(valor, TipoMovimentacao.DEBITO, this));
-                    return 1;
-                }
-                case ("C") -> {
-                    listaMovimentacoes.add(new Movimentacao(valor, TipoMovimentacao.CREDITO, this));
-                    return 1;
-                }
-            }
         }
-        else{
-            if(movimento.toUpperCase()=="T")
-            {
-                this.pediTalao();
+
+        switch (movimento.toUpperCase()) {
+            case ("D") -> {
+                if(getSaldo() < valor){
+                    System.out.println("Valor maior que saldo atual. Não é possível efeituar o debito");
+                    return 0;
+                }
+//                debito(valor);
+                listaMovimentacoes.add(new Movimentacao(valor, TipoMovimentacao.DEBITO, this));
                 return 1;
             }
-        }
+            case ("C") -> {
+                listaMovimentacoes.add(new Movimentacao(valor, TipoMovimentacao.CREDITO, this));
+                return 1;
+            }
 
+        }
         return 0;
     }
-
 }
+

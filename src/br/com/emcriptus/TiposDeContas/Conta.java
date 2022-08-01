@@ -17,30 +17,28 @@ public abstract class Conta {
     private String nome;
 
     public ArrayList<Movimentacao> listaMovimentacoes = new ArrayList<Movimentacao>();
-
     private boolean ativo;
-
 
     public Conta(int _numero, String _cpf, String _nome) {
         this.numero = _numero;
         this.cpf = _cpf;
         this.cnpj = "N/A";
         this.nome = _nome;
+        this.ativo = true;
     }
     public Conta(String _cnpj, int _numero , String _nome) {
         this.numero = _numero;
         this.cpf = "N/A";
         this.cnpj = _cnpj;
         this.nome = _nome;
+        this.ativo = true;
     }
-
 
     public String getCnpj() {
         return this.cnpj;
     }
 
-
-    public boolean isAtivo() {
+    public boolean getAtivo() {
 
         return this.ativo;
     }
@@ -86,11 +84,6 @@ public abstract class Conta {
 
     }
 
-
-    public void setSaldo(double saldo) {
-//        this.saldo = saldo;
-    }// pode setar??
-
     public double debito(double valor){ //Perguntar o professor se pode ser publico
 //        saldo -= valor;
         return  0;
@@ -107,12 +100,6 @@ public abstract class Conta {
 
         int numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Valor aleatorio 10000 até 99999
 
-//        for(int i = 0; i <= contas.size(); i++ ){
-//            while(contas.get(i) == numConta){
-//                numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Novo numero aleatorio
-//            }
-//        }
-
         for (int i: contas) { //foreach contas[i]
             while(i == numConta){
                 numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Novo numero aleatorio
@@ -122,7 +109,18 @@ public abstract class Conta {
         return numConta;
     }
 
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 
+    public void alterarStatus(){
+        setAtivo(!getAtivo());
+        if (getAtivo()) {
+            System.out.println("Conta Ativada");
+        } else {
+            System.out.println("Conta Desativada");
+        }
+    }
 
     public abstract int movimento();
 

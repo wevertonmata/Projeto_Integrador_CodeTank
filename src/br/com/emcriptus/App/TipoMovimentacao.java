@@ -6,6 +6,5 @@ public enum TipoMovimentacao {
     EMPRESTIMO,
     SOLICITARTALAO,
     SIMULARPOUPANCA,
-    LIMITEESPECIAL
 
 }
