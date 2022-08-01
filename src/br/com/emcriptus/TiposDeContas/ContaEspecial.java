@@ -63,6 +63,7 @@ public class  ContaEspecial extends Conta {
         sc.nextLine();
 
             while (valor <= 0){
+                System.out.println("Digite um valor maio que zero:");
                 valor = sc.nextDouble();
                 sc.nextLine();
             }

@@ -63,6 +63,7 @@ public class ContaPoupanca extends Conta {
             double valor = sc.nextDouble();
             sc.nextLine();
             while (valor <= 0) {
+                System.out.println("Digite um valor maio que zero:");
                 valor = sc.nextDouble();
                 sc.nextLine();
             }
@@ -101,7 +102,6 @@ public class ContaPoupanca extends Conta {
         for (int i = 0; i < listaMovimentacoes.size(); i++) {
             if(listaMovimentacoes.get(i).getConta()==this)
             {
-               DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                LocalDate dataDaMovimentacao = listaMovimentacoes.get(i).getDataMovimentacao();
                Period period = Period.between(dataDaMovimentacao, dataInformada);
                somaSaldoCorrigido += listaMovimentacoes.get(i).getValor()+((listaMovimentacoes.get(i).getValor()*0.005) * period.getMonths());
