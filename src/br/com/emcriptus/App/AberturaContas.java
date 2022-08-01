@@ -15,7 +15,7 @@ public class AberturaContas {
             System.out.println(count + " > " + c.getNome() + " | "  + c.getCpf());
             count++;
         }
-        System.out.println("0 > Criar uma nova conta: ");
+        System.out.println("Digite o número 0 para criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = sc.nextInt();
@@ -48,7 +48,7 @@ public class AberturaContas {
             System.out.println(count + " > " + cp.getNome() + " | "  + cp.getCpf());
             count++;
         }
-        System.out.println("0 > Criar uma nova conta: ");
+        System.out.println("Digite o número 0 para criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = entrada.nextInt();
@@ -71,7 +71,6 @@ public class AberturaContas {
         return codConta;
 	}
 
-
     public static int SelecionarContaEstudantil(ArrayList<Integer> numerosContas, ArrayList<ContaEstudantil> contas) {
         Scanner entrada = new Scanner(System.in);
         int count = 1, codConta;
@@ -81,7 +80,7 @@ public class AberturaContas {
             System.out.println(count + " > " + cp.getNome() + " | "  + cp.getCpf());
             count++;
         }
-        System.out.println("0 > Criar um nova conta: ");
+        System.out.println("Digite o número 0 para criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = entrada.nextInt();
@@ -104,7 +103,6 @@ public class AberturaContas {
         return codConta;
     }
 
-
     public static int SelecionarContaEmpresa(ArrayList<Integer> numerosContas, ArrayList<ContaEmpresa> contas) {
         Scanner entrada = new Scanner(System.in);
         int count = 1, codConta;
@@ -114,7 +112,7 @@ public class AberturaContas {
             System.out.println(count + " > " + cp.getNome() + " | "  + cp.getCpf());
             count++;
         }
-        System.out.println("0 > Criar um nova conta: ");
+        System.out.println("Digite o número 0 para criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = entrada.nextInt();
@@ -146,7 +144,7 @@ public class AberturaContas {
             System.out.println(count + " > " + c.getNome() + " | "  + c.getCpf());
             count++;
         }
-        System.out.println("0 > Criar uma nova conta: ");
+        System.out.println("Digite o número 0 para criar uma nova conta: ");
 
         System.out.println("Escolha: ");
         int op = sc.nextInt();

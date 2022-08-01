@@ -22,6 +22,8 @@ public class ContaEmpresa extends Conta {
         Conta contaMovimentacao = this;
 
         Scanner sc = new Scanner(System.in);
+        double valor = 0;
+
 
         if(getMovimentacoes()>=10)
         {
@@ -68,9 +70,16 @@ public class ContaEmpresa extends Conta {
         sc.nextLine();
 
         while (valor <= 0) {
+
             valor = sc.nextDouble();
             sc.nextLine();
+
+            while (valor <= 0){
+                valor = sc.nextDouble();
+                sc.nextLine();
+            }
         }
+
 
         valorMovimentacao = valor;
 
@@ -94,6 +103,7 @@ public class ContaEmpresa extends Conta {
             {
                 this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, TipoMovimentacao.CREDITO, contaMovimentacao));
                 return 1;
+
             }
             return 0;
         } else {

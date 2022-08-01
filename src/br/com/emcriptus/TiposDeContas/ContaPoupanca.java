@@ -24,6 +24,7 @@ public class ContaPoupanca extends Conta {
 //    }
 
     public int movimento() {
+
         Scanner sc = new Scanner(System.in);
         String movimentoInformado;
         TipoMovimentacao tipoMovimentacao = null;
@@ -82,6 +83,7 @@ public class ContaPoupanca extends Conta {
             } else if (valorMovimentacao < getSaldo()) {
                 this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
                 return 1;
+
             }
         } else if (movimentoInformado.toUpperCase().trim().equals("C")) {
             this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
@@ -118,7 +120,9 @@ public class ContaPoupanca extends Conta {
                somaSaldoCorrigido += listaMovimentacoes.get(i).getValor()+((listaMovimentacoes.get(i).getValor()*0.005) * period.getMonths());
             }
         }
+
         return somaSaldoCorrigido;
+
     }
 }
 

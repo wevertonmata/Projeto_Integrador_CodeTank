@@ -45,6 +45,7 @@ public class Interface {
         }
 
         System.out.printf(conta.getNome() + "  |  " + cpf_cnpj + "\nNumero Conta: %d | Saldo Atual: %.2f | Movimentações: %d \n",conta.getNumero(),conta.getSaldo(),conta.getMovimentacoes());
+
     }
 
     public static boolean continuar(){

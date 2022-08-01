@@ -18,6 +18,7 @@ public class ContaEstudantil extends Conta {
     //metodo movimento retorna 1 se ocorreu com sucesso e 0 se houve falha
     @Override
     public int movimento() {
+
         String movimentoInformado;
         TipoMovimentacao tipoMovimentacao = null;
         double valorMovimentacao = 0;
@@ -65,8 +66,14 @@ public class ContaEstudantil extends Conta {
         sc.nextLine();
 
         while (valor <= 0) {
+
             valor = sc.nextDouble();
             sc.nextLine();
+
+            while (valor <= 0){
+                valor = sc.nextDouble();
+                sc.nextLine();
+            }
         }
 
 
@@ -92,6 +99,7 @@ public class ContaEstudantil extends Conta {
             {
                 this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, TipoMovimentacao.CREDITO, contaMovimentacao));
                 return 1;
+
             }
             return 0;
         } else {

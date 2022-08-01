@@ -23,7 +23,9 @@ public abstract class Conta {
         this.numero = _numero;
         this.cpf = _cpf;
         this.cnpj = "N/A";
+
         this.nome = _nome;
+
         this.ativo = true;
     }
     public Conta(String _cnpj, int _numero , String _nome) {
@@ -31,6 +33,7 @@ public abstract class Conta {
         this.cpf = "N/A";
         this.cnpj = _cnpj;
         this.nome = _nome;
+
         this.ativo = true;
     }
 
@@ -85,8 +88,10 @@ public abstract class Conta {
     }
 
     public double debito(double valor){ //Perguntar o professor se pode ser publico
+
 //        saldo -= valor;
         return  0;
+
     }
 
     public void credito(double valor){
@@ -105,9 +110,9 @@ public abstract class Conta {
                 numConta = (random.nextInt(99999 - (10000 - 1)) + 10000); //Novo numero aleatorio
             }
         }
-
         return numConta;
     }
+
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
@@ -122,7 +127,17 @@ public abstract class Conta {
         }
     }
 
+
     public abstract int movimento();
+
+    public void alterarStatus(){
+        setAtivo(!getAtivo());
+        if (getAtivo()) {
+            System.out.println("Conta Ativada");
+        } else {
+            System.out.println("Conta Desativada");
+        }
+    }
 
 }
 

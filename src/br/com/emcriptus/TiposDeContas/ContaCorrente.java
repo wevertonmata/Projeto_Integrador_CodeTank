@@ -19,10 +19,12 @@ public class    ContaCorrente extends Conta{
 
     @Override
     public double debito(double valor){
+
 //        double saldo =  super.getSaldo() - valor;
 //        super.setSaldo(saldo);
 //        return  saldo;
         return 0;
+
     }
 
     public int getTaloes() {
@@ -41,7 +43,7 @@ public class    ContaCorrente extends Conta{
     }
     public void pediTalao(){
         if(super.getSaldo() < 30){
-            System.out.println("Saldo insuficiente para ter talão de cheque R$" + super.getSaldo());
+            System.out.println("Saldo insuficiente para ter talão de cheque. Saldo Atual: R$" + super.getSaldo());
             return;
         }
 
@@ -57,6 +59,7 @@ public class    ContaCorrente extends Conta{
     public int movimento(){
         Scanner sc = new Scanner(System.in);
         double valor = 0;
+
         int movimentacoes = this.getMovimentacoes();
 
         if ((getSaldo() == valor)) {
@@ -64,8 +67,10 @@ public class    ContaCorrente extends Conta{
         }
         else if((getSaldo() > valor)) {
             System.out.println("MOVIMENTO - D-debito || C-Crédito || S-Ativa/Desativa Conta:");
+
         }
         String movimento = sc.nextLine().toUpperCase().trim();
+
         while (!(movimento.equals("C") || movimento.equals("D") || (movimento.equals("S")) )){
             movimento = sc.nextLine().toUpperCase().trim();
         }
@@ -77,6 +82,7 @@ public class    ContaCorrente extends Conta{
             alterarStatus();
             return 1;
         } else{
+
             System.out.println("Valor do movimento: R$");
             valor = sc.nextDouble();
             sc.nextLine();
@@ -93,6 +99,7 @@ public class    ContaCorrente extends Conta{
                     System.out.println("Valor maior que saldo atual. Não é possível efeituar o debito");
                     return 0;
                 }
+
 //                debito(valor);
                 listaMovimentacoes.add(new Movimentacao(valor, TipoMovimentacao.DEBITO, this));
                 return 1;
@@ -100,6 +107,7 @@ public class    ContaCorrente extends Conta{
             case ("C") -> {
                 listaMovimentacoes.add(new Movimentacao(valor, TipoMovimentacao.CREDITO, this));
                 return 1;
+
             }
 
         }
