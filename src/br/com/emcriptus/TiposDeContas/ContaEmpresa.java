@@ -22,8 +22,6 @@ public class ContaEmpresa extends Conta {
         Conta contaMovimentacao = this;
 
         Scanner sc = new Scanner(System.in);
-        double valor = 0;
-
 
         if(getMovimentacoes()>=10)
         {
@@ -70,16 +68,9 @@ public class ContaEmpresa extends Conta {
         sc.nextLine();
 
         while (valor <= 0) {
-
             valor = sc.nextDouble();
             sc.nextLine();
-
-            while (valor <= 0){
-                valor = sc.nextDouble();
-                sc.nextLine();
-            }
         }
-
 
         valorMovimentacao = valor;
 
@@ -103,7 +94,6 @@ public class ContaEmpresa extends Conta {
             {
                 this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, TipoMovimentacao.CREDITO, contaMovimentacao));
                 return 1;
-
             }
             return 0;
         } else {
@@ -130,12 +120,12 @@ public class ContaEmpresa extends Conta {
     }
     public boolean pedirEmprestimo (double valor){
         if ( valor > emprestimoEmpresa) {
-            System.out.println("Limite de Emprestimo Excedido");
+            System.out.println("Limite de emprestimo excedido");
             return false;
         }
         else {
             emprestimoEmpresa = emprestimoEmpresa - valor;
-            System.out.println("Emprestimo Consedido com Sucesso");
+            System.out.println("Empréstimo concedido com sucesso");
             return true;
         }
 

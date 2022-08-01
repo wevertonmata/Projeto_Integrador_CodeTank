@@ -129,7 +129,7 @@ public class ContaEstudantil extends Conta {
     //seta credito se tem limite disponviel
     public boolean usarEstudantil(double valor){
             if(valor > limiteEstudantil){
-                System.out.println("Empréstimo indisponível");
+                System.out.println("Limite de empréstimo excedido");
                 return false;
             }
             else{

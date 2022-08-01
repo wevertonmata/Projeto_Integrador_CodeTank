@@ -130,14 +130,7 @@ public abstract class Conta {
 
     public abstract int movimento();
 
-    public void alterarStatus(){
-        setAtivo(!getAtivo());
-        if (getAtivo()) {
-            System.out.println("Conta Ativada");
-        } else {
-            System.out.println("Conta Desativada");
-        }
-    }
+
 
 }
 

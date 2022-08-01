@@ -25,8 +25,6 @@ public class  ContaEspecial extends Conta {
 
 
         Scanner sc = new Scanner(System.in);
-        double valor = 0;
-
 
         if(getMovimentacoes()>=10)
         {
@@ -65,17 +63,10 @@ public class  ContaEspecial extends Conta {
         double valor = sc.nextDouble();
         sc.nextLine();
 
-        while (valor <= 0) {
-
-            valor = sc.nextDouble();
-            sc.nextLine();
-
             while (valor <= 0){
                 valor = sc.nextDouble();
                 sc.nextLine();
             }
-        }
-
 
         valorMovimentacao = valor;
 
@@ -94,7 +85,6 @@ public class  ContaEspecial extends Conta {
             else{
                 this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
                 return 1;
-
             }
         }
         else if (movimentoInformado.toUpperCase().trim().equals("C")) {
@@ -123,7 +113,6 @@ public class  ContaEspecial extends Conta {
     }
 
     //seta credito se tem limite disponviel
-
     public void usarEspecial(double valor) {
 
         this.listaMovimentacoes.add(new Movimentacao(valor, TipoMovimentacao.DEBITO, this));
@@ -135,6 +124,5 @@ public class  ContaEspecial extends Conta {
         //System.out.println("Valor retirado do saldo R$" + valorRetiradoSaldo);
         System.out.println("Limite após transação R$" + limiteEspecial);
         System.out.println("Saldo após transação R$" + getSaldo());
-
     }
 }

@@ -132,22 +132,6 @@ public class App {
             }
         }
 
-    public static void statusConta(ArrayList<Integer> numerosContas,ArrayList<ContaPoupanca> poupancas,
-                                   ArrayList<ContaCorrente> correntes,ArrayList<ContaEspecial> especiais,
-                                   ArrayList<ContaEmpresa> empresas,ArrayList<ContaEstudantil> estudantis ){
-        int count = 0;
-
-
-
-        if(especiais.size() == 0){
-            System.out.println("Sem contas especiais.");
-        }else{
-            System.out.println("Contas Especiais: ");
-            for (ContaEspecial c : especiais) {
-                System.out.println(count + " > " + c.getNome() + " | "  + c.getAtivo());
-                count++;
-            }
-        }
 
 
     }
