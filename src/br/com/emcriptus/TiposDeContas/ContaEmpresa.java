@@ -1,5 +1,8 @@
 package br.com.emcriptus.TiposDeContas;
 
+import br.com.emcriptus.App.Movimentacao;
+import br.com.emcriptus.App.TipoMovimentacao;
+
 import java.util.Scanner;
 
 public class ContaEmpresa extends Conta {
@@ -8,24 +11,46 @@ public class ContaEmpresa extends Conta {
 
     public ContaEmpresa( String _cnpj,int _numero, String _nome) {
         super(_cnpj,_numero, _nome);
-        this.emprestimoEmpresa = 10000;
+       emprestimoEmpresa = 10000;
     }
 
     @Override
     public int movimento() {
+        String movimentoInformado;
+        TipoMovimentacao tipoMovimentacao = null;
+        double valorMovimentacao = 0;
+        Conta contaMovimentacao = this;
+
         Scanner sc = new Scanner(System.in);
 
+        if(getMovimentacoes()>=10)
+        {
+            System.out.println("Nao é possivel fazer mais operacoes");
+            return 0;
+        }
         if (getSaldo() == 0) {
-            System.out.println("MOVIMENTO - C-Crédito:");
+            System.out.println("MOVIMENTO - C-Crédito ou E-Empréstimo:");
         } else {
-            System.out.println("MOVIMENTO - D-debito ou C-Crédito:");
+            System.out.println("MOVIMENTO - D-debito ou C-Crédito ou E-Empréstimo:");
+        }
+        movimentoInformado = sc.nextLine().toUpperCase().trim();
+        //caso a pessoa digite algo diferente de s e n
+        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("E"))) {
+            System.out.println(String.format("A opção digitada %s não é valida", movimentoInformado));
+            System.out.println("Digite novamente");
+            movimentoInformado = sc.nextLine().toUpperCase().trim();
+        }
+        //convertendo valor informado para enumerador do tipo de movimentacao (credito ou debito)
+        if (movimentoInformado.equals("C")) {
+            tipoMovimentacao = TipoMovimentacao.CREDITO;
+        } else if (movimentoInformado.equals("D")) {
+            tipoMovimentacao = TipoMovimentacao.DEBITO;
+        } else if (movimentoInformado.equals("E")) {
+            tipoMovimentacao = TipoMovimentacao.EMPRESTIMO;
+            System.out.println("Limite máximo de empréstimo R$" + emprestimoEmpresa);
         }
 
-        String movimento = sc.nextLine().toUpperCase().trim();
-        while (!(movimento.equals("C") || movimento.equals("D"))){
-            movimento = sc.nextLine().toUpperCase().trim();
-        }
-
+        //pegando o valor da transaçao informada
         System.out.println("Valor do movimento: R$");
 
         double valor = sc.nextDouble();
@@ -36,19 +61,32 @@ public class ContaEmpresa extends Conta {
             sc.nextLine();
         }
 
-        switch (movimento.toUpperCase()) {
-            case ("D") -> {
-                if (getSaldo() < valor) {
-                    System.out.println("Valor maior que saldo atual. Não é possível efeituar o debito");
-                    return 0;
-                }
-                debito(valor);
+        valorMovimentacao = valor;
+
+        //inserir a movimentacao após a transacao
+
+        if (movimentoInformado.toUpperCase().trim().equals("D")) {
+            if (getSaldo() < valor) {
+                System.out.println("Valor maior que saldo atual. Não é possível efetuar o debito");
+                return 0;
+            } else if (valorMovimentacao < getSaldo()) {
+                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+//                debito(valor);
                 return 1;
             }
-            case ("C") -> {
-                credito(valor);
+        } else if (movimentoInformado.toUpperCase().trim().equals("C")) {
+            this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+//            credito(valor);
+            return 1;
+        } else if (movimentoInformado.toUpperCase().trim().equals("E")) {
+            if(pedirEmprestimo(valor))
+            {
+                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, TipoMovimentacao.CREDITO, contaMovimentacao));
                 return 1;
             }
+            return 0;
+        } else {
+            return 0;
         }
         return 0;
     }
@@ -68,12 +106,14 @@ public class ContaEmpresa extends Conta {
         return super.getSaldo();
     }
     public boolean pedirEmprestimo (double valor){
-        if ( valor > emprestimoEmpresa)
+        if ( valor > emprestimoEmpresa) {
+            System.out.println("Limite de Emprestimo Excedido");
             return false;
+        }
         else {
             emprestimoEmpresa = emprestimoEmpresa - valor;
-            credito(valor);
-             return true;
+            System.out.println("Emprestimo Consedido com Sucesso");
+            return true;
         }
 
     }

@@ -9,8 +9,10 @@ public class Interface {
     public static int telaInicial(){
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("*x**x**x**x**x**x**x**x**x**x**x**x**x**x*");
         System.out.println("BANCO EMCRIPTUS G2");
-        System.out.println("O Futuro cada mais perto de você.");
+        System.out.println("O Futuro mais perto de você.");
+        System.out.println("*x**x**x**x**x**x**x**x**x**x**x**x**x**x*");
 
         System.out.println("\n1 - CONTA POUPANCA");
         System.out.println("2 - CONTA CORRENTE");

@@ -48,6 +48,7 @@ public class ContaEstudantil extends Conta {
             tipoMovimentacao = TipoMovimentacao.DEBITO;
         } else if (movimentoInformado.equals("E")) {
             tipoMovimentacao = TipoMovimentacao.EMPRESTIMO;
+            System.out.println("Limite máximo de empréstimo R$" + limiteEstudantil);
         }
         //pegando o valor da transaçao informada
         System.out.println("Valor do movimento: R$");
@@ -116,7 +117,7 @@ public class ContaEstudantil extends Conta {
                 return false;
             }
             else{
-                System.out.println("Sucesso");
+                System.out.println("Emprestimo Consedido com Sucesso");
                 limiteEstudantil = limiteEstudantil - valor;
                 return true;
             }
