@@ -9,8 +9,10 @@ public class Interface {
     public static int telaInicial(){
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("*x**x**x**x**x**x**x**x**x**x**x**x**x**x*");
         System.out.println("BANCO EMCRIPTUS G2");
-        System.out.println("O Futuro cada mais perto de você.");
+        System.out.println("O Futuro mais perto de você.");
+        System.out.println("*x**x**x**x**x**x**x**x**x**x**x**x**x**x*");
 
         System.out.println("\n1 - CONTA POUPANCA");
         System.out.println("2 - CONTA CORRENTE");
@@ -42,9 +44,10 @@ public class Interface {
             cpf_cnpj = conta.getCpf();
         }
 
-        System.out.printf(conta.getNome() + " | CPF " + cpf_cnpj + "\nNumero Conta: %d | Saldo Atual: %.2f | Movimentações: %d \n",conta.getNumero(),conta.getSaldo(),movimentacoes);
+        System.out.printf(conta.getNome() + "  |  " + cpf_cnpj + "\nNumero Conta: %d | Saldo Atual: %.2f | Movimentações: %d \n",conta.getNumero(),conta.getSaldo(),conta.getMovimentacoes());
+
     }
-    
+
     public static boolean continuar(){
         Scanner sc = new Scanner(System.in);
 

@@ -1,5 +1,8 @@
 package br.com.emcriptus.TiposDeContas;
 
+import br.com.emcriptus.App.Movimentacao;
+import br.com.emcriptus.App.TipoMovimentacao;
+
 import java.util.Scanner;
 
 public class ContaEstudantil extends Conta {
@@ -10,26 +13,60 @@ public class ContaEstudantil extends Conta {
     {
         super(numero, cpf, nome);
         limiteEstudantil = 5000;
-    }
 
+    }
+    //metodo movimento retorna 1 se ocorreu com sucesso e 0 se houve falha
     @Override
     public int movimento() {
+
+        String movimentoInformado;
+        TipoMovimentacao tipoMovimentacao = null;
+        double valorMovimentacao = 0;
+        Conta contaMovimentacao = this;
+
         Scanner sc = new Scanner(System.in);
-        double valor = 0;
-
-        if ((getSaldo() == 0)) {
-            System.out.println("MOVIMENTO - C-crédito ou S-ativar/desativar conta:");
+        if(getMovimentacoes()>=10)
+        {
+            System.out.println("Não é possível fazer mais operações");
+            return 0;
+        }
+        if (getSaldo() == 0) {
+            System.out.println("MOVIMENTO - C-Crédito || E-Empréstimo: || S-Ativa/Desativa Conta:");
         } else {
-            System.out.println("MOVIMENTO - D-debito ou C-crédito ou S-ativar/desativar conta:");
+            System.out.println("MOVIMENTO - D-Débito || C-Crédito || E-Empréstimo: || S-Ativa/Desativa Conta:");
+        }
+        movimentoInformado = sc.nextLine().toUpperCase().trim();
+        //caso a pessoa digite algo diferente de s e n
+        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("E") || (movimentoInformado.equals("S")))) {
+            System.out.println(String.format("A opção digitada %s não é válida", movimentoInformado));
+            System.out.println("Digite novamente");
+            movimentoInformado = sc.nextLine().toUpperCase().trim();
+        }
+        if((movimentoInformado.equals("C")  || movimentoInformado.equals("D")|| movimentoInformado.equals("E")) && !getAtivo()){
+            System.out.println("A conta está inativada.");
+            return 0;
+        } else if (movimentoInformado.equals("S")) {
+            alterarStatus();
+            return 1;
         }
 
-        String movimento = sc.nextLine().toUpperCase().trim();
-        while (!(movimento.equals("C") || movimento.equals("D") || movimento.equals("S"))){
-            movimento = sc.nextLine().toUpperCase().trim();
+        //convertendo valor informado para enumerador do tipo de movimentacao (credito ou debito)
+        if (movimentoInformado.equals("C")) {
+            tipoMovimentacao = TipoMovimentacao.CREDITO;
+        } else if (movimentoInformado.equals("D")) {
+            tipoMovimentacao = TipoMovimentacao.DEBITO;
+        } else if (movimentoInformado.equals("E")) {
+            tipoMovimentacao = TipoMovimentacao.EMPRESTIMO;
+            System.out.println("Limite máximo de empréstimo R$" + limiteEstudantil);
         }
+        //pegando o valor da transaçao informada
+        System.out.println("Valor do movimento: R$");
 
-        if(!movimento.equals("S")){
-            System.out.println("Valor do movimento: R$");
+        double valor = sc.nextDouble();
+        sc.nextLine();
+
+        while (valor <= 0) {
+
             valor = sc.nextDouble();
             sc.nextLine();
 
@@ -39,46 +76,50 @@ public class ContaEstudantil extends Conta {
             }
         }
 
-        switch (movimento.toUpperCase()) {
-            case ("D") -> {
-                if (getSaldo() < valor) {
-                    System.out.println("Valor maior que saldo atual. Não é possível efeituar o debito");
-                    return 0;
-                }
-                if(super.getAtivo()){
-                    debito(valor);
-                    return 1;
-                }else{
-                    System.out.println("CONTA DESATIVADA, não é possível fazer credito ou debito.");
-                    return 0;
-                }
-            }
-            case ("C") -> {
-                if(super.getAtivo()){
-                    credito(valor);
-                    return 1;
-                }else{
-                    System.out.println("CONTA DESATIVADA, não é possível fazer credito ou debito.");
-                    return 0;
-                }
-            }
-            case ("S") -> {
-                alterarStatus();
+
+        valorMovimentacao = valor;
+
+        //inserir a movimentacao após a transacao
+
+        if (movimentoInformado.toUpperCase().trim().equals("D")) {
+            if (getSaldo() < valor) {
+                System.out.println("Valor maior que saldo atual. Não é possível efetuar o débito");
                 return 0;
+            } else if (valorMovimentacao < getSaldo()) {
+                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+//                debito(valor);
+                return 1;
             }
+        } else if (movimentoInformado.toUpperCase().trim().equals("C")) {
+            this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+//            credito(valor);
+            return 1;
+        } else if (movimentoInformado.toUpperCase().trim().equals("E")) {
+            if(usarEstudantil(valor))
+            {
+                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, TipoMovimentacao.CREDITO, contaMovimentacao));
+                return 1;
+
+            }
+            return 0;
+        } else {
+            return 0;
         }
         return 0;
-    }
-
-    @Override
-    public void credito(double valor) {
-        super.credito(valor);
     }
 
     @Override
     public double debito(double valor) {
         return super.debito(valor);
     }
+
+
+    @Override
+    public void credito(double valor) {
+        super.credito(valor);
+    }
+
+
 
     @Override
     public double getSaldo() {
@@ -87,12 +128,13 @@ public class ContaEstudantil extends Conta {
 
     //seta credito se tem limite disponviel
     public boolean usarEstudantil(double valor){
-            if(valor > limiteEstudantil)
+            if(valor > limiteEstudantil){
+                System.out.println("Empréstimo indisponível");
                 return false;
-            else
-            {
+            }
+            else{
+                System.out.println("Empréstimo concedido com sucesso");
                 limiteEstudantil = limiteEstudantil - valor;
-                credito(valor);
                 return true;
             }
     }

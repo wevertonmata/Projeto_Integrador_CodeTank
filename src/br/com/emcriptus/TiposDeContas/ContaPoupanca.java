@@ -1,105 +1,128 @@
 package br.com.emcriptus.TiposDeContas;
 
+import br.com.emcriptus.App.Movimentacao;
+import br.com.emcriptus.App.TipoMovimentacao;
+
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class ContaPoupanca extends Conta {
 
-    private String[] dtAniversario;
+    private LocalDate dtAniversario;
 
     public ContaPoupanca(int numero, String cpf, String nome) {
         super(numero, cpf, nome);
     }
 
-    @Override
-    public double debito(double valor) {
-        double saldo = super.getSaldo() - valor;
-        super.setSaldo(saldo);
-        return saldo;
-    }
+//    @Override
+//    public double debito(double valor) {
+//        double saldo = super.getSaldo() - valor;
+//        super.setSaldo(saldo);
+//        return saldo;
+//    }
 
     public int movimento() {
-        Scanner entrada = new Scanner(System.in);
-        double valor = 0;
 
-        if ((getSaldo() == 0)) {
-            System.out.println("MOVIMENTO - C-crédito ou S-ativar/desativar conta:");
+        Scanner sc = new Scanner(System.in);
+        String movimentoInformado;
+        TipoMovimentacao tipoMovimentacao = null;
+        double valorMovimentacao = 0;
+        Conta contaMovimentacao = this;
+
+        if(getMovimentacoes()>=10)
+        {
+            System.out.println("Não é possível fazer mais operações");
+            return 0;
+        }
+
+        if (getSaldo() == 0) {
+            System.out.println("MOVIMENTO - C-Crédito: || S-Ativa/Desativa Conta:");
         } else {
-            System.out.println("MOVIMENTO - D-debito ou C-crédito ou S-ativar/desativar conta:");
+            System.out.println("MOVIMENTO - D-Débito || C-Crédito || M-Simular Juros Poupança: || S-Ativa/Desativa Conta:");
         }
 
-        String movimento = entrada.nextLine().toUpperCase().trim();
-        while (!(movimento.equals("C") || movimento.equals("D") || movimento.equals("S"))) {
-            movimento = entrada.nextLine().toUpperCase().trim();
+        movimentoInformado = sc.nextLine().toUpperCase().trim();
+        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("M") || (movimentoInformado.equals("S")))) {
+            System.out.println(String.format("A opção digitada %s não é válida", movimentoInformado));
+            System.out.println("Digite novamente");
+            movimentoInformado = sc.nextLine().toUpperCase().trim();
+        }
+        if((movimentoInformado.equals("C")  || movimentoInformado.equals("D") || movimentoInformado.equals("M")) && !getAtivo()){
+            System.out.println("A conta está inativada.");
+            return 0;
+        } else if (movimentoInformado.equals("S")) {
+            alterarStatus();
+            return 1;
         }
 
-        if(!movimento.equals("S")){
+        if (movimentoInformado.equals("C")) {
+            tipoMovimentacao = TipoMovimentacao.CREDITO;
+        } else if (movimentoInformado.equals("D")) {
+            tipoMovimentacao = TipoMovimentacao.DEBITO;
+        } else if (movimentoInformado.equals("M")) {
+            tipoMovimentacao = TipoMovimentacao.SIMULARPOUPANCA;
+        }
+
+        if((movimentoInformado.equals("C") || movimentoInformado.equals("D"))){
             System.out.println("Valor do movimento: R$");
-            valor = entrada.nextDouble();
-            entrada.nextLine();
-
-            while (valor <= 0){
-                valor = entrada.nextDouble();
-                entrada.nextLine();
+            double valor = sc.nextDouble();
+            sc.nextLine();
+            while (valor <= 0) {
+                valor = sc.nextDouble();
+                sc.nextLine();
             }
+            valorMovimentacao = valor;
         }
 
-        switch (movimento.toUpperCase()) {
-            case ("D") -> {
-                if (getSaldo() < valor) {
-                    System.out.println("Valor maior que saldo atual. Não é possível efetuar o debito");
-                    return 0;
-                }
-
-                if(super.getAtivo()){
-                    debito(valor);
-                    return 1;
-                }else{
-                    System.out.println("CONTA DESATIVADA, não é possível fazer credito ou debito.");
-                    return 0;
-                }
-            }
-            case ("C") -> {
-                if(super.getAtivo()){
-                    credito(valor);
-                    return 1;
-                }else{
-                    System.out.println("CONTA DESATIVADA, não é possível fazer credito ou debito.");
-                    return 0;
-                }
-            }
-            case ("S") -> {
-                alterarStatus();
+        if (movimentoInformado.toUpperCase().trim().equals("D")) {
+            if (getSaldo() < valorMovimentacao) {
+                System.out.println("Valor maior que o saldo atual. Não é possível efetuar o débito");
                 return 0;
+            } else if (valorMovimentacao < getSaldo()) {
+                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+                return 1;
+
             }
+        } else if (movimentoInformado.toUpperCase().trim().equals("C")) {
+            this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+            return 1;
+        } else if (movimentoInformado.toUpperCase().trim().equals("M")) {
+                System.out.println("Informe a Data de Aniversário: dd/mm/aaaa");
+                String DataTemporaria = sc.nextLine();
+                DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate DataInformada = LocalDate.parse(DataTemporaria, DATEFORMATTER);
+                System.out.println("Projeção do Saldo: R$" + correcao(DataInformada));
+            return 0;
+        } else {
+            return 0;
         }
+
         return 0;
     }
 
-    @Override
-    public void credito(double valor) {
-        Scanner entrada = new Scanner(System.in);
-        if (dtAniversario == null) {
-            System.out.println("Informe a Data de Depósito: dd/mm/aaaa");
-            dtAniversario = entrada.nextLine().split("/", 3);
+//    @Override
+//    public void credito(double valor) {
+//       double saldo = super.getSaldo() + valor;
+//        super.setSaldo(saldo);
+//    }
 
-        } else {
-            System.out.println("Informe a Data de Depósito: dd/mm/aaaa");
-            String[] dtAtual= entrada.nextLine().split("/", 3);
-            LocalDate aniversario = LocalDate.of(Integer.parseInt(dtAniversario[2]), Integer.parseInt(dtAniversario[1]),Integer.parseInt(dtAniversario[0]));
-            LocalDate atual = LocalDate.of(Integer.parseInt(dtAtual[2]), Integer.parseInt(dtAtual[1]),Integer.parseInt(dtAtual[0]));
-            Period periodo = Period.between(aniversario, atual);
-           for (int i = 0; i <= periodo.getMonths();i++) {
-               correcao();
+    public double correcao(LocalDate dataInformada) {
+        double valorSaldo = 0, somaSaldoCorrigido = 0;
+
+        for (int i = 0; i < listaMovimentacoes.size(); i++) {
+            if(listaMovimentacoes.get(i).getConta()==this)
+            {
+               DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+               LocalDate dataDaMovimentacao = listaMovimentacoes.get(i).getDataMovimentacao();
+               Period period = Period.between(dataDaMovimentacao, dataInformada);
+               somaSaldoCorrigido += listaMovimentacoes.get(i).getValor()+((listaMovimentacoes.get(i).getValor()*0.005) * period.getMonths());
             }
-            System.out.printf("Periodo: %d | Novo Saldo: R$%.2f \n", periodo.getMonths(), getSaldo());
         }
-       double saldo = super.getSaldo() + valor;
-        super.setSaldo(saldo);
-    }
-    public void correcao() {
-        setSaldo(( getSaldo()*0.005)+getSaldo());
+
+        return somaSaldoCorrigido;
+
     }
 }
 

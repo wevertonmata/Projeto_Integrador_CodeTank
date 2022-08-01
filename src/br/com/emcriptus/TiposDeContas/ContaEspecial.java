@@ -1,32 +1,72 @@
 package br.com.emcriptus.TiposDeContas;
 
+import br.com.emcriptus.App.Movimentacao;
+import br.com.emcriptus.App.TipoMovimentacao;
+
 import java.util.Scanner;
 
-public class ContaEspecial extends Conta {
-    private double limiteEspecial = 1000.00; // Regra limite da conta
+
+public class  ContaEspecial extends Conta {
+    private double limiteEspecial;
+
 
     public ContaEspecial(int numero, String cpf, String nome) {
         super(numero, cpf, nome);
+        this.limiteEspecial = 1000;
     }
 
 
     public int movimento() {
+
+        String movimentoInformado;
+        TipoMovimentacao tipoMovimentacao = null;
+        double valorMovimentacao = 0;
+        Conta contaMovimentacao = this;
+
+
         Scanner sc = new Scanner(System.in);
         double valor = 0;
 
-        if ((getSaldo() == 0)) {
-            System.out.println("MOVIMENTO - C-crédito ou S-ativar/desativar conta:");
-        } else {
-            System.out.println("MOVIMENTO - D-debito ou C-crédito ou S-ativar/desativar conta:");
+
+        if(getMovimentacoes()>=10)
+        {
+            System.out.println("Não é possível fazer mais operações");
+            return 0;
         }
 
-        String movimento = sc.nextLine().toUpperCase().trim();
-        while (!(movimento.equals("C") || movimento.equals("D") || movimento.equals("S"))){
-            movimento = sc.nextLine().toUpperCase().trim();
+        System.out.println("MOVIMENTO - C-Crédito || D-Débito || S-Ativa/Desativa Conta:");
+        System.out.println("Limite especial disponível: R$" +limiteEspecial);
+
+
+        movimentoInformado = sc.nextLine().toUpperCase().trim();
+        //caso a pessoa digite algo diferente de s e n
+        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || (movimentoInformado.equals("S")))) {
+            System.out.println(String.format("A opção digitada %s não é válida", movimentoInformado));
+            System.out.println("Digite novamente");
+            movimentoInformado = sc.nextLine().toUpperCase().trim();
+        }
+        if((movimentoInformado.equals("C")  || movimentoInformado.equals("D")) && !getAtivo()){
+            System.out.println("A conta está inativada.");
+            return 0;
+        } else if (movimentoInformado.equals("S")) {
+            alterarStatus();
+            return 1;
         }
 
-        if(!movimento.equals("S")){
-            System.out.println("Valor do movimento: R$");
+        //convertendo valor informado para enumerador do tipo de movimentacao (credito ou debito)
+              if (movimentoInformado.equals("C")) {
+            tipoMovimentacao = TipoMovimentacao.CREDITO;
+        } else if (movimentoInformado.equals("D")) {
+            tipoMovimentacao = TipoMovimentacao.DEBITO;
+        }
+        //pegando o valor da transaçao informada
+        System.out.println("Valor do movimento: R$");
+
+        double valor = sc.nextDouble();
+        sc.nextLine();
+
+        while (valor <= 0) {
+
             valor = sc.nextDouble();
             sc.nextLine();
 
@@ -36,38 +76,39 @@ public class ContaEspecial extends Conta {
             }
         }
 
-        switch (movimento.toUpperCase()) {
-            case ("D") -> {
-                if(super.getAtivo()){
-                    if (getSaldo() < valor) {
-                        return usarEspecial(valor);
-                    }
-                    debito(valor);
-                    return 1;
-                }else{
-                    System.out.println("CONTA DESATIVADA, não é possível fazer credito ou debito.");
-                    return 0;
-                }
 
-            }
-            case ("C") -> {
-                if(super.getAtivo()){
-                    credito(valor);
-                    return 1;
-                }else{
-                    System.out.println("CONTA DESATIVADA, não é possível fazer credito ou debito.");
+        valorMovimentacao = valor;
+
+        //inserir a movimentacao após a transacao
+
+        if (movimentoInformado.toUpperCase().trim().equals("D")) {
+            if (getSaldo() < valorMovimentacao){ //(100 < 150)
+                if( (limiteEspecial + getSaldo()) < valorMovimentacao) { //(1000 +100 < 150)
+                    System.out.println("Não foi possível efetuar o débito");
                     return 0;
                 }
+                System.out.println("Você terá que usar o limite especial.");
+                usarEspecial(valorMovimentacao);
+                return 1;
             }
-            case ("S") -> {
-                alterarStatus();
-                return 0;
+            else{
+                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+                return 1;
+
             }
         }
+        else if (movimentoInformado.toUpperCase().trim().equals("C")) {
+            this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
 
-        return 0;
+            return 1;
+        }
+        else {
+            return 0;
+        }
+        //return 0;
     }
     public void credito(double valor) {
+
         super.credito(valor);
     }
 
@@ -82,23 +123,18 @@ public class ContaEspecial extends Conta {
     }
 
     //seta credito se tem limite disponviel
-    public int usarEspecial(double valor) {
 
-        if(valor > limiteEspecial) {
-            System.out.println("Limite Especial Indisponível para o cliente");
-            System.out.println("Limite Especial Disponível: R$" +limiteEspecial);
-            return 0;
-        }
+    public void usarEspecial(double valor) {
 
-        debito(valor);
-        if(getSaldo() < 0){ // -100 negativo
-            double limiteAnterior =  limiteEspecial; //1000
-            limiteEspecial = limiteEspecial + getSaldo(); //diminuir no limite > 900
-            double diferenca = limiteAnterior - limiteEspecial; //1000 - 900 = 100
-            credito(diferenca);//ajusta no saldo fica 0 (zero)
-            System.out.println("Novo Limite Especial: R$" +limiteEspecial);
-        }
+        this.listaMovimentacoes.add(new Movimentacao(valor, TipoMovimentacao.DEBITO, this));
+        //double valorRetiradoSaldo =   valor - getSaldo(); //150 - 100 = 50
+        double limiteAnterior = limiteEspecial;
+        limiteEspecial = limiteEspecial + getSaldo(); // 1000 - 50 = 950
+        double difenca = limiteAnterior - limiteEspecial;
+        this.listaMovimentacoes.add(new Movimentacao(difenca, TipoMovimentacao.CREDITO, this));
+        //System.out.println("Valor retirado do saldo R$" + valorRetiradoSaldo);
+        System.out.println("Limite após transação R$" + limiteEspecial);
+        System.out.println("Saldo após transação R$" + getSaldo());
 
-        return 1;
     }
 }

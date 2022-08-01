@@ -1,80 +1,103 @@
 package br.com.emcriptus.TiposDeContas;
 
+import br.com.emcriptus.App.Movimentacao;
+import br.com.emcriptus.App.TipoMovimentacao;
+
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Predicate;
 
 public abstract class Conta {
 
-    private final int numero;
-    private final String cpf;
+    private int numero;
+    private String cpf;
 
-    private final String cnpj;
+    private String cnpj;
     private double saldo;
-    private final String nome;
+    private String nome;
 
+    public ArrayList<Movimentacao> listaMovimentacoes = new ArrayList<Movimentacao>();
     private boolean ativo;
 
-    public Conta(int numero, String cpf, String nome) {
-        this.numero = numero;
-        this.cpf = cpf;
+    public Conta(int _numero, String _cpf, String _nome) {
+        this.numero = _numero;
+        this.cpf = _cpf;
         this.cnpj = "N/A";
-        this.nome = nome;
-        this.ativo = true;
-    }
-    public Conta(String cnpj, int numero , String nome) {
-        this.numero = numero;
-        this.cpf = "N/A";
-        this.cnpj = cnpj;
-        this.nome = nome;
-        this.ativo = true;
-    }
 
+        this.nome = _nome;
+
+        this.ativo = true;
+    }
+    public Conta(String _cnpj, int _numero , String _nome) {
+        this.numero = _numero;
+        this.cpf = "N/A";
+        this.cnpj = _cnpj;
+        this.nome = _nome;
+
+        this.ativo = true;
+    }
 
     public String getCnpj() {
-        return cnpj;
-    }
-
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+        return this.cnpj;
     }
 
     public boolean getAtivo() {
-        return ativo;
+
+        return this.ativo;
     }
 
     public String getNome() {
-		return nome;
+
+        return this.nome;
 	}
 
 
 	public String getCpf() {
-        return cpf;
+
+        return this.cpf;
     }
 
     public int getNumero() {
-        return numero;
+        return this.numero;
     }
 
     public double getSaldo() {
-        return saldo;
+        double valorSaldo = 0;
+        for (int i = 0; i < listaMovimentacoes.size(); i++) {
+            if(listaMovimentacoes.get(i).getConta()==this)
+            {
+
+                valorSaldo += listaMovimentacoes.get(i).getValor();
+            }
+        }
+        return valorSaldo;
     }
 
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }// pode setar??
+    public int getMovimentacoes() {
+        int movimentacoes = 0;
+        for (int i = 0; i < listaMovimentacoes.size(); i++) {
+            if(listaMovimentacoes.get(i).getConta()==this)
+            {
+                if(!listaMovimentacoes.get(i).getTipoMovimentacao().equals(TipoMovimentacao.SIMULARPOUPANCA)){
+                    movimentacoes++;
+                }
+            }
+        }
+        return movimentacoes;
+
+    }
 
     public double debito(double valor){ //Perguntar o professor se pode ser publico
-        System.out.println("Debito efetuado com sucesso R$" + valor);
-        saldo -= valor;
-        System.out.println("Saldo Atual R$" + saldo);
-        return  saldo;
+
+//        saldo -= valor;
+        return  0;
+
     }
 
     public void credito(double valor){
     	System.out.println("Crédito efetuado com sucesso R$" + valor);
-        saldo += valor;
-        System.out.println("Saldo Atual R$" + saldo);
+//        saldo += valor;
+//        System.out.println("Saldo Atual R$" + saldo);
     };
 
     public static int gerarNumConta(ArrayList<Integer> contas) {
@@ -89,6 +112,21 @@ public abstract class Conta {
         }
         return numConta;
     }
+
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public void alterarStatus(){
+        setAtivo(!getAtivo());
+        if (getAtivo()) {
+            System.out.println("Conta Ativada");
+        } else {
+            System.out.println("Conta Desativada");
+        }
+    }
+
 
     public abstract int movimento();
 
