@@ -79,7 +79,7 @@ public class  ContaEspecial extends Conta {
                     return 0;
                 }
                 System.out.println("Você terá que usar o limite especial.");
-                usarEspecial(valorMovimentacao);
+                usarEspecialDebito(valorMovimentacao);
                 return 1;
             }
             else{
@@ -88,14 +88,20 @@ public class  ContaEspecial extends Conta {
             }
         }
         else if (movimentoInformado.toUpperCase().trim().equals("C")) {
-            this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+            if(limiteEspecial < 1000){
+                usarEspecialCredito(valorMovimentacao);
+                return 1;
+            }else{
+                this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
+                return 1;
+            }
 
-            return 1;
         }
         else {
             return 0;
         }
         //return 0;
+
     }
     public void credito(double valor) {
 
@@ -113,7 +119,7 @@ public class  ContaEspecial extends Conta {
     }
 
     //seta credito se tem limite disponviel
-    public void usarEspecial(double valor) {
+    public void usarEspecialDebito(double valor) {
 
         this.listaMovimentacoes.add(new Movimentacao(valor, TipoMovimentacao.DEBITO, this));
         //double valorRetiradoSaldo =   valor - getSaldo(); //150 - 100 = 50
@@ -122,6 +128,19 @@ public class  ContaEspecial extends Conta {
         double difenca = limiteAnterior - limiteEspecial;
         this.listaMovimentacoes.add(new Movimentacao(difenca, TipoMovimentacao.CREDITO, this));
         //System.out.println("Valor retirado do saldo R$" + valorRetiradoSaldo);
+        System.out.println("Limite após transação R$" + limiteEspecial);
+        System.out.println("Saldo após transação R$" + getSaldo());
+    }
+
+    public void usarEspecialCredito(double valor) {
+
+        limiteEspecial += valor; // 800 + 300 = 1100
+        if(limiteEspecial > 1000){
+            double diferenca = limiteEspecial - 1000; //100
+            limiteEspecial -= diferenca; //1100 - 100
+            this.listaMovimentacoes.add(new Movimentacao(diferenca, TipoMovimentacao.CREDITO, this)); // Coloco no Saldo = 100
+        }
+
         System.out.println("Limite após transação R$" + limiteEspecial);
         System.out.println("Saldo após transação R$" + getSaldo());
     }
