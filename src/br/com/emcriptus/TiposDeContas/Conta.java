@@ -65,6 +65,7 @@ public abstract class Conta {
         for (int i = 0; i < listaMovimentacoes.size(); i++) {
             if(listaMovimentacoes.get(i).getConta()==this)
             {
+
                 valorSaldo += listaMovimentacoes.get(i).getValor();
             }
         }

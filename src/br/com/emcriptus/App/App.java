@@ -84,7 +84,7 @@ public class App {
         while (true) {
             Interface.tela2(2, contas.get(codConta), movimentacoes); //Print informações da Tela 2
 
-            movimentacoes = contas.get(codConta).getMovimentacoes();
+            movimentacoes = contas.get(codConta).movimento();
             ; // Retorna 1 se for executada ação e retorna 0 se não foi.
 
             boolean respContinuar = Interface.continuar(); //Pergunta se o cliente deseja continuar
