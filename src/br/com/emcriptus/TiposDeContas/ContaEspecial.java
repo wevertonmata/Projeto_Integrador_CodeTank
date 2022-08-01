@@ -30,9 +30,10 @@ public class  ContaEspecial extends Conta {
             System.out.println("Nao é possivel fazer mais operacoes");
             return 0;
         }
-        if (getSaldo() == 0) {
-            System.out.println("MOVIMENTO - C-Crédito || MOVIMENTO - D-debito");
-        }
+
+        System.out.println("MOVIMENTO - C-Crédito || MOVIMENTO - D-debito");
+        System.out.println("Limite especial disponível: R$" +limiteEspecial);
+
 
         movimentoInformado = sc.nextLine().toUpperCase().trim();
         //caso a pessoa digite algo diferente de s e n
@@ -63,24 +64,21 @@ public class  ContaEspecial extends Conta {
         //inserir a movimentacao após a transacao
 
         if (movimentoInformado.toUpperCase().trim().equals("D")) {
-            // if (valorMovimentacao < getSaldo()) {
-
-
-            if (getSaldo() < 0){
-                if(limiteEspecial < valorMovimentacao) {
+            if (getSaldo() < valorMovimentacao){ //(100 < 150)
+                if( (limiteEspecial + getSaldo()) < valorMovimentacao) { //(1000 +100 < 150)
                     System.out.println("Não foi possivel efetuar o débito");
                     return 0;
                 }
-                usarEspecial();
+                System.out.println("Você terá que usar o limite especial.");
+                usarEspecial(valorMovimentacao);
                 return 1;
             }
             else{
                 this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
                 return 1;
             }
-
-
-        } else if (movimentoInformado.toUpperCase().trim().equals("C")) {
+        }
+        else if (movimentoInformado.toUpperCase().trim().equals("C")) {
             this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
 
             return 1;
@@ -106,13 +104,16 @@ public class  ContaEspecial extends Conta {
     }
 
     //seta credito se tem limite disponviel
-    public void usarEspecial() {
+    public void usarEspecial(double valor) {
 
-        double limiteAnterior =  limiteEspecial; //1000
-        limiteEspecial = limiteEspecial + getSaldo(); //diminuir no limite > 900
-        //double diferenca = limiteAnterior - limiteEspecial; //1000 - 900 = 100
-       // this.listaMovimentacoes.add(new Movimentacao(diferenca, TipoMovimentacao.LIMITEESPECIAL, this));
-        System.out.println("Limite Especial: R$" +limiteEspecial);
-
+        this.listaMovimentacoes.add(new Movimentacao(valor, TipoMovimentacao.DEBITO, this));
+        //double valorRetiradoSaldo =   valor - getSaldo(); //150 - 100 = 50
+        double limiteAnterior = limiteEspecial;
+        limiteEspecial = limiteEspecial + getSaldo(); // 1000 - 50 = 950
+        double difenca = limiteAnterior - limiteEspecial;
+        this.listaMovimentacoes.add(new Movimentacao(difenca, TipoMovimentacao.CREDITO, this));
+        //System.out.println("Valor retirado do saldo R$" + valorRetiradoSaldo);
+        System.out.println("Limite após transação R$" + limiteEspecial);
+        System.out.println("Saldo após transação R$" + getSaldo());
     }
 }
