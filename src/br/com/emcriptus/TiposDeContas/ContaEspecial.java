@@ -31,19 +31,27 @@ public class  ContaEspecial extends Conta {
             return 0;
         }
 
-        System.out.println("MOVIMENTO - C-Crédito || D-Débito");
+        System.out.println("MOVIMENTO - C-Crédito || D-Débito || S-Ativa/Desativa Conta:");
         System.out.println("Limite especial disponível: R$" +limiteEspecial);
 
 
         movimentoInformado = sc.nextLine().toUpperCase().trim();
         //caso a pessoa digite algo diferente de s e n
-        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D"))) {
+        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || (movimentoInformado.equals("S")))) {
             System.out.println(String.format("A opção digitada %s não é válida", movimentoInformado));
             System.out.println("Digite novamente");
             movimentoInformado = sc.nextLine().toUpperCase().trim();
         }
+        if((movimentoInformado.equals("C")  || movimentoInformado.equals("D")) && !getAtivo()){
+            System.out.println("A conta está inativada.");
+            return 0;
+        } else if (movimentoInformado.equals("S")) {
+            alterarStatus();
+            return 1;
+        }
+
         //convertendo valor informado para enumerador do tipo de movimentacao (credito ou debito)
-        if (movimentoInformado.equals("C")) {
+              if (movimentoInformado.equals("C")) {
             tipoMovimentacao = TipoMovimentacao.CREDITO;
         } else if (movimentoInformado.equals("D")) {
             tipoMovimentacao = TipoMovimentacao.DEBITO;

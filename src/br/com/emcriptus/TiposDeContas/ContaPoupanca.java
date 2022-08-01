@@ -37,16 +37,23 @@ public class ContaPoupanca extends Conta {
         }
 
         if (getSaldo() == 0) {
-            System.out.println("MOVIMENTO - C-Crédito:");
+            System.out.println("MOVIMENTO - C-Crédito: || S-Ativa/Desativa Conta:");
         } else {
-            System.out.println("MOVIMENTO - D-Débito || C-Crédito || M-Simular Juros Poupança:");
+            System.out.println("MOVIMENTO - D-Débito || C-Crédito || M-Simular Juros Poupança: || S-Ativa/Desativa Conta:");
         }
 
         movimentoInformado = sc.nextLine().toUpperCase().trim();
-        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("M"))) {
+        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("M") || (movimentoInformado.equals("S")))) {
             System.out.println(String.format("A opção digitada %s não é válida", movimentoInformado));
             System.out.println("Digite novamente");
             movimentoInformado = sc.nextLine().toUpperCase().trim();
+        }
+        if((movimentoInformado.equals("C")  || movimentoInformado.equals("D") || movimentoInformado.equals("M")) && !getAtivo()){
+            System.out.println("A conta está inativada.");
+            return 0;
+        } else if (movimentoInformado.equals("S")) {
+            alterarStatus();
+            return 1;
         }
 
         if (movimentoInformado.equals("C")) {
@@ -80,7 +87,7 @@ public class ContaPoupanca extends Conta {
             this.listaMovimentacoes.add(new Movimentacao(valorMovimentacao, tipoMovimentacao, contaMovimentacao));
             return 1;
         } else if (movimentoInformado.toUpperCase().trim().equals("M")) {
-                System.out.println("Informe a Data de Depósito: dd/mm/aaaa");
+                System.out.println("Informe a Data de Aniversário: dd/mm/aaaa");
                 String DataTemporaria = sc.nextLine();
                 DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDate DataInformada = LocalDate.parse(DataTemporaria, DATEFORMATTER);

@@ -30,17 +30,25 @@ public class ContaEstudantil extends Conta {
             return 0;
         }
         if (getSaldo() == 0) {
-            System.out.println("MOVIMENTO - C-Crédito || E-Empréstimo:");
+            System.out.println("MOVIMENTO - C-Crédito || E-Empréstimo: || S-Ativa/Desativa Conta:");
         } else {
-            System.out.println("MOVIMENTO - D-Débito || C-Crédito || E-Empréstimo:");
+            System.out.println("MOVIMENTO - D-Débito || C-Crédito || E-Empréstimo: || S-Ativa/Desativa Conta:");
         }
         movimentoInformado = sc.nextLine().toUpperCase().trim();
         //caso a pessoa digite algo diferente de s e n
-        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("E"))) {
+        while (!(movimentoInformado.equals("C") || movimentoInformado.equals("D") || movimentoInformado.equals("E") || (movimentoInformado.equals("S")))) {
             System.out.println(String.format("A opção digitada %s não é válida", movimentoInformado));
             System.out.println("Digite novamente");
             movimentoInformado = sc.nextLine().toUpperCase().trim();
         }
+        if((movimentoInformado.equals("C")  || movimentoInformado.equals("D")|| movimentoInformado.equals("E")) && !getAtivo()){
+            System.out.println("A conta está inativada.");
+            return 0;
+        } else if (movimentoInformado.equals("S")) {
+            alterarStatus();
+            return 1;
+        }
+
         //convertendo valor informado para enumerador do tipo de movimentacao (credito ou debito)
         if (movimentoInformado.equals("C")) {
             tipoMovimentacao = TipoMovimentacao.CREDITO;

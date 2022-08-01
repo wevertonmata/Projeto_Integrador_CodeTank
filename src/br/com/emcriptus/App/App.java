@@ -93,7 +93,6 @@ public class App {
             }
         }
     }
-
     public static void contaEmpresa(ArrayList<Integer> numerosContas, ArrayList<ContaEmpresa> contas) {
         Scanner sc = new Scanner(System.in);
         int movimentacoes = 0, codConta;
