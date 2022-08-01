@@ -2,6 +2,7 @@ package br.com.emcriptus.App;
 
 import br.com.emcriptus.TiposDeContas.Conta;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
@@ -16,7 +17,7 @@ public class Movimentacao {
     private Conta contaMovimentacao;
 
     //gerada pelo java quando a movimentacao é criada
-    private LocalDateTime dataMovimentacao;
+    private LocalDate dataMovimentacao;
 
     //garantindo que a instancia da classe nao pode ser sem parâmetros
     public Movimentacao() {
@@ -36,7 +37,8 @@ public class Movimentacao {
             throw new RuntimeException("Conta informada incorretamente");
         //setando atributos para movimentacoes
         this.numeroMovimentacao = UUID.randomUUID();
-        this.dataMovimentacao = LocalDateTime.now();
+        this.dataMovimentacao = LocalDate.now();
+
 
         //setando atributos do objeto passados por parâmetro no construtor
         this.tipoMovimentacao = _tipoMovimentacao;
@@ -65,7 +67,7 @@ public class Movimentacao {
         return this.tipoMovimentacao;
     }
 
-
-
-
+    public LocalDate getDataMovimentacao() {
+        return this.dataMovimentacao;
+    }
 }

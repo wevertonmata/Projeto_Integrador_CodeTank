@@ -4,6 +4,7 @@ public enum TipoMovimentacao {
            DEBITO,
         CREDITO,
     EMPRESTIMO,
+    SOLICITARTALAO,
+    SIMULARPOUPANCA
 
-    SOLICITARTALAO
 }

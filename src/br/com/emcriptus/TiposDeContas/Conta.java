@@ -1,6 +1,7 @@
 package br.com.emcriptus.TiposDeContas;
 
 import br.com.emcriptus.App.Movimentacao;
+import br.com.emcriptus.App.TipoMovimentacao;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -68,9 +69,6 @@ public abstract class Conta {
             }
         }
         return valorSaldo;
-
-
-
     }
 
     public int getMovimentacoes() {
@@ -78,7 +76,9 @@ public abstract class Conta {
         for (int i = 0; i < listaMovimentacoes.size(); i++) {
             if(listaMovimentacoes.get(i).getConta()==this)
             {
-                movimentacoes++;
+                if(!listaMovimentacoes.get(i).getTipoMovimentacao().equals(TipoMovimentacao.SIMULARPOUPANCA)){
+                    movimentacoes++;
+                }
             }
         }
         return movimentacoes;
